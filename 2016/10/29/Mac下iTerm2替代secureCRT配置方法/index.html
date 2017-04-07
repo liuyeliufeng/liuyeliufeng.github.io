@@ -1,0 +1,865 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="bo6QMu1YHIYW0TUVQ96L69yzJ7GzSx4Si5hpZRe4lHg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mac,iTerm2," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近在折腾iterm2的自动登录问题，由于之前一直在windows使用xshell作为我的ssh客户端，习惯了自动登录以及在远程机器上执行本地脚本（script），刚接触mac上iterm2很崩溃，虽然iterm2的分屏等操作极大方便了程序员的开发，但是日常经常通过跳板机登录线上机器，使我对于输入机器名密码登录很是头疼。xshell可以编辑快捷按钮并且自定义脚本方式达成目的，iterm2可是需要折">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac下iterm2替代secureCRT配置方法">
+<meta property="og:url" content="http://liuyeliufeng.github.io/2016/10/29/Mac下iTerm2替代secureCRT配置方法/index.html">
+<meta property="og:site_name" content="XiaShanshan's Tech Blog">
+<meta property="og:description" content="最近在折腾iterm2的自动登录问题，由于之前一直在windows使用xshell作为我的ssh客户端，习惯了自动登录以及在远程机器上执行本地脚本（script），刚接触mac上iterm2很崩溃，虽然iterm2的分屏等操作极大方便了程序员的开发，但是日常经常通过跳板机登录线上机器，使我对于输入机器名密码登录很是头疼。xshell可以编辑快捷按钮并且自定义脚本方式达成目的，iterm2可是需要折">
+<meta property="og:image" content="http://liuyeliufeng.github.io/uploads/1942b8af4d43f54246c29abba.png">
+<meta property="og:image" content="http://liuyeliufeng.github.io/uploads/5f7b238a183ff66cf3b57342c.png">
+<meta property="og:updated_time" content="2017-04-06T12:43:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mac下iterm2替代secureCRT配置方法">
+<meta name="twitter:description" content="最近在折腾iterm2的自动登录问题，由于之前一直在windows使用xshell作为我的ssh客户端，习惯了自动登录以及在远程机器上执行本地脚本（script），刚接触mac上iterm2很崩溃，虽然iterm2的分屏等操作极大方便了程序员的开发，但是日常经常通过跳板机登录线上机器，使我对于输入机器名密码登录很是头疼。xshell可以编辑快捷按钮并且自定义脚本方式达成目的，iterm2可是需要折">
+<meta name="twitter:image" content="http://liuyeliufeng.github.io/uploads/1942b8af4d43f54246c29abba.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> mac下iterm2替代secureCRT配置方法 | XiaShanshan's Tech Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">XiaShanshan's Tech Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                mac下iterm2替代secureCRT配置方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-29T17:24:00+08:00" content="2016-10-29">
+              2016-10-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Mac效率提升/" itemprop="url" rel="index">
+                    <span itemprop="name">Mac效率提升</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/29/Mac下iTerm2替代secureCRT配置方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/29/Mac下iTerm2替代secureCRT配置方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/10/29/Mac下iTerm2替代secureCRT配置方法/" class="leancloud_visitors" data-flag-title="mac下iterm2替代secureCRT配置方法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在折腾iterm2的自动登录问题，由于之前一直在windows使用xshell作为我的ssh客户端，习惯了自动登录以及在远程机器上执行本地脚本（script），刚接触mac上iterm2很崩溃，虽然iterm2的分屏等操作极大方便了程序员的开发，但是日常经常通过跳板机登录线上机器，使我对于输入机器名密码登录很是头疼。xshell可以编辑快捷按钮并且自定义脚本方式达成目的，iterm2可是需要折腾一番。</p>
+<h1 id="Session复制"><a href="#Session复制" class="headerlink" title="Session复制"></a>Session复制</h1><p>windows下xshell和secureCRT等ssh客户端有个很大的优势就是可以复制会话，可以不用重复输入机器密码。</p>
+<p>ssh本身也提供了一种快捷的方式来解决这个问题，在 <code>~/.ssh/config</code> 文件中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Host *</div><div class="line">ControlMaster auto</div><div class="line">ControlPath ~/.ssh/master-%r@%h:%p</div></pre></td></tr></table></figure>
+<p>这样下次登录同一个站点时，即可复用之前的会话信息，我们可以在<code>~/.ssh/</code>目录看到<br><img src="/uploads/1942b8af4d43f54246c29abba.png" alt=""><br>这代表每次登录这个站点的时候其实是复用之前的会话句柄。</p>
+<a id="more"></a>
+<h1 id="登录远程机器"><a href="#登录远程机器" class="headerlink" title="登录远程机器"></a>登录远程机器</h1><p>登录远程机器通常有两种，一种是通过账号密码登录，另一种是基于密钥的安全认证，<code>ssh密钥认证自动登录</code>正是通过这种方式的安全认证，但是配置起来比较麻烦，这里不推荐，感兴趣的同学可以看这里<a href="https://segmentfault.com/a/1190000000481249" target="_blank" rel="external">配置ssh密钥认证自动登录</a>。下面我们介绍通过密码登录的配置方式。</p>
+<h2 id="可以直连的机器"><a href="#可以直连的机器" class="headerlink" title="可以直连的机器"></a>可以直连的机器</h2><p>xshell和secureCRT另一个很方便的功能就是，我们可以将登录机器的信息保存并使用快捷操作（保存成脚本或快捷命令），这样每次登录机器时就不用敲一堆机器名密码，最头疼的是我们根本也记不住这些用户名密码，iterm2有没有相应的解决方案呢？答案是肯定的。</p>
+<p>在 <code>~/.ssh/config</code> 文件中加入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Host &lt;alias&gt;</div><div class="line">    Hostname &lt;ip&gt;/&lt;hostname&gt;</div><div class="line">    Port &lt;port&gt;</div><div class="line">    User &lt;username&gt;</div></pre></td></tr></table></figure>
+<p>这样当我们输入<code>ssh alias</code>的时候，其实执行的是<code>ssh username@ip/hostname:port</code>，这样就很方便得登录到远程机器。</p>
+<h2 id="无法直连的机器"><a href="#无法直连的机器" class="headerlink" title="无法直连的机器"></a>无法直连的机器</h2><p>大公司经常通过跳板机登录到目标机器上，为了安全考虑，我们是无法直接连接线上机器的，通过上面的方式无法解决我们的问题，那有没有其他方式呢？答案是有的，我们可以把这个问题分成两种情况：</p>
+<h3 id="静态密码登录"><a href="#静态密码登录" class="headerlink" title="静态密码登录"></a>静态密码登录</h3><p>有些公司的跳板机是静态密码，也就是使用固定密码登录，可以分为以下几个步骤：</p>
+<p>1.写一个简单的expect脚本，如<code>remote.exp</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect  </div><div class="line"></div><div class="line">set timeout 30 </div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01.baidu.com</div><div class="line">set jumppasswd root</div><div class="line">set jumpuser root</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost:$jumpport</div><div class="line"></div><div class="line"># expect输出信息请自定义，如不需要密码，下段可省略</div><div class="line">expect &#123;  </div><div class="line">    &quot;(yes/no)?&quot;  </div><div class="line">    &#123;send &quot;yes\r&quot;&#125;  </div><div class="line">    &quot;password:&quot;  </div><div class="line">    &#123;send &quot;$jumppasswd\r&quot;&#125;  </div><div class="line">&#125;</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host dev.baidu.com</div><div class="line">set passwd xxx</div><div class="line">set user xxx</div><div class="line">set port 22</div><div class="line"></div><div class="line"># 登录目标机器</div><div class="line">send &quot;ssh $user@$host:$port&quot;</div><div class="line"># expect输出信息请自定义，如不需要密码，下段可省略</div><div class="line">expect &#123;  </div><div class="line">    &quot;(yes/no)?&quot;  </div><div class="line">    &#123;send &quot;yes\r&quot;&#125;  </div><div class="line">    &quot;password:&quot;  </div><div class="line">    &#123;send &quot;passwd\r&quot;&#125;  </div><div class="line">&#125;</div><div class="line"># 结束控制</div><div class="line">interact</div></pre></td></tr></table></figure>
+<p>提示： </p>
+<ul>
+<li>命令字符串结尾别忘记加上“\r”或“\n”，相当于回车</li>
+<li>expect后根据自己机器的实际输出，定义判断字段</li>
+</ul>
+<p>2.将脚本复制到<code>~/.ssh</code>目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv remote.exp ~/.ssh</div></pre></td></tr></table></figure></p>
+<p>3.设置调用命令</p>
+<p>iTerm – preferences 打开设置界面，配置如下：<br><img src="/uploads/5f7b238a183ff66cf3b57342c.png" alt=""></p>
+<h3 id="动态密码登录"><a href="#动态密码登录" class="headerlink" title="动态密码登录"></a>动态密码登录</h3><p>大公司中，使用动态密码登录跳板机的情况比较常见，动态密码一般是自己设置的6位密码+token的动态6位数字，这种方式看似复杂，其实我们可以通过两种情况看:</p>
+<ol>
+<li>已经通过动态密码登录过跳板机：【复制会话】会实现自动登录，配置方式同上；</li>
+<li>有的同学比较任性，之前没有登陆过跳板机，能不能实现一次操作直接登录跳板机和目标机器呢？可以，但需要高阶一点的<code>expect</code>语法，写法如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">set timeout 30</div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01.baidu.com</div><div class="line">set jumpuser root</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost:$jumpport</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host dev.baidu.com</div><div class="line">set passwd xxx</div><div class="line">set user xxx</div><div class="line">set port 22</div><div class="line"></div><div class="line">interact &#123;</div><div class="line">    &quot;off&quot; &#123;</div><div class="line">        send &quot;ssh $user@$host:$port\n&quot;</div><div class="line">        # exec ssh $user@$host:$port</div><div class="line">        interact</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>提示：<code>off</code>为用户设置的远端机器的别名，登录跳板机后，输入“off”登录目标机器。</p>
+<p>这种方式可能还不够优雅，下面介绍<strong>终极解决方案</strong>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01</div><div class="line">set jumpuser xiashanshan</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># grab the password</div><div class="line">stty -echo</div><div class="line">send_user -- &quot;Password for $jumpuser@$jumphost: &quot;</div><div class="line">expect_user -re &quot;(.*)\n&quot;</div><div class="line">send_user &quot;\n&quot;</div><div class="line">stty echo</div><div class="line"># set pass</div><div class="line">set pass $expect_out(1,string)</div><div class="line"></div><div class="line">#exec ssh $jumpuser@$jumphost</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;*password:*&quot; &#123; send &quot;$pass\n&quot; &#125;</div><div class="line">    &quot;*ssl*&quot; &#123; send &quot;\n&quot; &#125;</div><div class="line">    default &#123; exit 1 &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host idev.baidu.com</div><div class="line">set user root</div><div class="line">set password root</div><div class="line"></div><div class="line">send &quot;ssh --matrix $user@$host\n&quot;</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;*password:*&quot; &#123; send &quot;$pass\n&quot; &#125;</div><div class="line">    default &#123; exit 1 &#125;</div><div class="line">&#125;</div><div class="line">interact</div></pre></td></tr></table></figure>
+<p>提示：如果已经登陆过跳板机，控制台输出<code>Password for $jumpuser@$jumphost:</code>提示输入密码时，可以直接回车跳过。</p>
+<h1 id="rz、sz文件上传下载"><a href="#rz、sz文件上传下载" class="headerlink" title="rz、sz文件上传下载"></a>rz、sz文件上传下载</h1><p>首先需要安装<code>lrzsz</code>，如果没有安装<code>brew</code>，参考这里:<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">http://brew.sh/index_zh-cn.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">brew install lrzsz</div></pre></td></tr></table></figure>
+<p>然后下载iterm2-zmodem：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/bin</div><div class="line">wget https://raw.github.com/mmastrac/iterm2-zmodem/master/iterm2-send-zmodem.sh</div><div class="line">wget https://raw.github.com/mmastrac/iterm2-zmodem/master/iterm2-recv-zmodem.sh</div></pre></td></tr></table></figure></p>
+<p>打开<code>preferences → profiles</code>，选择某个profile，之后继续选择advanced → triggers，添加编辑添加如下triggers：</p>
+<table>
+<thead>
+<tr>
+<th>Regular Expression</th>
+<th>Action</th>
+<th>Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rz waiting to receive.**B0100</td>
+<td>Run Silent Coprocess</td>
+<td>/usr/local/bin/iterm2-send-zmodem.sh</td>
+</tr>
+<tr>
+<td>**B00000000000000</td>
+<td>Run Silent Coprocess</td>
+<td>/usr/local/bin/iterm2-recv-zmodem.sh</td>
+</tr>
+</tbody>
+</table>
+<p><code>zmodem</code>原作者：<a href="https://github.com/mmastrac/iterm2-zmodem" target="_blank" rel="external">https://github.com/mmastrac/iterm2-zmodem</a></p>
+<p>参考文章：<br>1.<a href="https://linux.die.net/man/1/expect" target="_blank" rel="external">https://linux.die.net/man/1/expect</a><br>2.<a href="https://www.pantz.org/software/expect/expect_examples_and_tips.html" target="_blank" rel="external">https://www.pantz.org/software/expect/expect_examples_and_tips.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/WeChat-Pay.jpg" alt="liuyeliufeng WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/Alipay.jpg" alt="liuyeliufeng Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mac/" rel="tag">#Mac</a>
+          
+            <a href="/tags/iTerm2/" rel="tag">#iTerm2</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/15/Linux-awk命令详解/" rel="next" title="Linux awk命令详解">
+                <i class="fa fa-chevron-left"></i> Linux awk命令详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/06/理解HTTP之Content-Type/" rel="prev" title="理解HTTP之Content-Type">
+                理解HTTP之Content-Type <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/29/Mac下iTerm2替代secureCRT配置方法/"
+           data-title="mac下iterm2替代secureCRT配置方法" data-url="http://liuyeliufeng.github.io/2016/10/29/Mac下iTerm2替代secureCRT配置方法/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="liuyeliufeng" />
+          <p class="site-author-name" itemprop="name">liuyeliufeng</p>
+          <p class="site-description motion-element" itemprop="description">No pains, No gains. Keep Coding and Trying.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liuyeliufeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Session复制"><span class="nav-number">1.</span> <span class="nav-text">Session复制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#登录远程机器"><span class="nav-number">2.</span> <span class="nav-text">登录远程机器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可以直连的机器"><span class="nav-number">2.1.</span> <span class="nav-text">可以直连的机器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#无法直连的机器"><span class="nav-number">2.2.</span> <span class="nav-text">无法直连的机器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态密码登录"><span class="nav-number">2.2.1.</span> <span class="nav-text">静态密码登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态密码登录"><span class="nav-number">2.2.2.</span> <span class="nav-text">动态密码登录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rz、sz文件上传下载"><span class="nav-number">3.</span> <span class="nav-text">rz、sz文件上传下载</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuyeliufeng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuyeliufeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MUoHMe5lntDXtJcKKuahdOpU-gzGzoHsz", "1iS7SRgP4O7ylEmKRq68l9zN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

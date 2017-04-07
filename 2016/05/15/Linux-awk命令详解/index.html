@@ -1,0 +1,922 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="bo6QMu1YHIYW0TUVQ96L69yzJ7GzSx4Si5hpZRe4lHg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux,awk," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="简介awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。
+awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk 是 AWK 的 GNU 版本。
+awk其名称得自于它的创始人 Alfred Aho 、Pe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux awk命令详解">
+<meta property="og:url" content="http://liuyeliufeng.github.io/2016/05/15/Linux-awk命令详解/index.html">
+<meta property="og:site_name" content="XiaShanshan's Tech Blog">
+<meta property="og:description" content="简介awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。
+awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk 是 AWK 的 GNU 版本。
+awk其名称得自于它的创始人 Alfred Aho 、Pe">
+<meta property="og:updated_time" content="2017-04-06T12:35:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux awk命令详解">
+<meta name="twitter:description" content="简介awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。
+awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk 是 AWK 的 GNU 版本。
+awk其名称得自于它的创始人 Alfred Aho 、Pe">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Linux awk命令详解 | XiaShanshan's Tech Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">XiaShanshan's Tech Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux awk命令详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-15T11:49:37+08:00" content="2016-05-15">
+              2016-05-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux命令详解/" itemprop="url" rel="index">
+                    <span itemprop="name">linux命令详解</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/15/Linux-awk命令详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/15/Linux-awk命令详解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/05/15/Linux-awk命令详解/" class="leancloud_visitors" data-flag-title="Linux awk命令详解">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>awk是一个强大的文本分析工具，相对于grep的查找，sed的编辑，awk在其对数据分析并生成报告时，显得尤为强大。简单来说awk就是把文件逐行的读入，以空格为默认分隔符将每行切片，切开的部分再进行各种分析处理。</p>
+<p>awk有3个不同版本: awk、nawk和gawk，未作特别说明，一般指gawk，gawk 是 AWK 的 GNU 版本。</p>
+<p>awk其名称得自于它的创始人 Alfred Aho 、Peter Weinberger 和 Brian Kernighan 姓氏的首个字母。实际上 AWK 的确拥有自己的语言：AWK 程序设计语言， 三位创建者已将它正式定义为“样式扫描和处理语言”。它允许您创建简短的程序，这些程序读取输入文件、为数据排序、处理数据、对输入执行计算以及生成报表，还有无数其他的功能。</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk &apos;&#123;pattern + action&#125;&apos; &#123;filenames&#125;</div></pre></td></tr></table></figure>
+<p> 其中 pattern 表示 AWK 在数据中查找的内容，而 action 是在找到匹配内容时所执行的一系列命令。花括号（{}）不需要在程序中始终出现，但它们用于根据特定的模式对一系列指令进行分组。 pattern就是要表示的正则表达式，用斜杠括起来。<br> 通常，awk是以文件的一行为处理单位的。awk每接收文件的一行，然后执行相应的命令，来处理文本。</p>
+<a id="more"></a>
+<p>调用awk的命令行方式</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">awk [-F  field-separator]  &apos;commands&apos;  input-file(s)</div></pre></td></tr></table></figure>
+<p>其中，commands 是真正awk命令，<strong>[-F域分隔符]是可选的。 input-file(s) 是待处理的文件。<br>在awk中，文件的每一行中，由域分隔符分开的每一项称为一个域。通常，在不指名-F域分隔符的情况下，默认的域分隔符是空格。</strong></p>
+<h1 id="awk入门实例"><a href="#awk入门实例" class="headerlink" title="awk入门实例"></a>awk入门实例</h1><p><strong>示例1</strong>：显示/etc/group所有group name</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ cat group // group内容</div><div class="line">root:x:0:root</div><div class="line">bin:x:1:root,bin,daemon</div><div class="line">daemon:x:2:root,bin,daemon</div><div class="line">sys:x:3:root,bin,adm</div><div class="line">adm:x:4:root,adm,daemon</div><div class="line">tty:x:5:</div><div class="line">disk:x:6:root</div><div class="line">lp:x:7:daemon,lp</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;BEGIN &#123;print &quot;start..&quot;&#125; &#123;print $1&#125; END &#123;print &quot;end..&quot;&#125;&apos; group</div><div class="line">start..</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">sys</div><div class="line">adm</div><div class="line">tty</div><div class="line">disk</div><div class="line">lp</div><div class="line">end..</div></pre></td></tr></table></figure>
+<p>awk工作流程是这样的：先执行BEGIN操作，然后读取文件，读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符（-F 指定）划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域。随后开始执行模式所对应的动作action,接着开始读入第二条记录······直到所有的记录都读完，最后执行END操作。<br>默认域分隔符是tab，-F指定分隔符为‘:’，所以$1表示group名称，$3表示group包含的用户,以此类推。</p>
+<p><strong>示例2</strong>：搜索/etc/group有root关键字的行并显示group name</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;/root/&#123;print $1&#125;&apos; group</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">sys</div><div class="line">adm</div><div class="line">disk</div><div class="line">wheel</div></pre></td></tr></table></figure>
+<p>这是pattern的使用示例，匹配了pattern(‘/root/‘)的行才会执行action(‘print $1’,没有指定action，默认输出每行的内容)。</p>
+<p><em>搜索支持正则，例如查找 <code>root</code>开头的行 <code>awk &#39;/^root/&#39; /etc/group</code></em>。</p>
+<h1 id="awk内置变量"><a href="#awk内置变量" class="headerlink" title="awk内置变量"></a>awk内置变量</h1><p>awk有许多内置变量，这些变量可以被改变，下面给出了一些最常用的变量。</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARGC</td>
+<td>命令行参数个数</td>
+</tr>
+<tr>
+<td>ARGV</td>
+<td>命令行参数排列</td>
+</tr>
+<tr>
+<td>ENVIRON</td>
+<td>支持队列中系统环境变量的使用</td>
+</tr>
+<tr>
+<td>FILENAME</td>
+<td>awk浏览的文件名</td>
+</tr>
+<tr>
+<td>FNR</td>
+<td>浏览文件的记录数</td>
+</tr>
+<tr>
+<td>FS</td>
+<td>设置输入域分隔符，等价于命令行 -F选项</td>
+</tr>
+<tr>
+<td>NF</td>
+<td>浏览记录的域的个数</td>
+</tr>
+<tr>
+<td>NR</td>
+<td>已读的记录数</td>
+</tr>
+<tr>
+<td>OFS</td>
+<td>输出域分隔符</td>
+</tr>
+<tr>
+<td>ORS</td>
+<td>输出记录分隔符</td>
+</tr>
+<tr>
+<td>RS</td>
+<td>控制记录分隔符</td>
+</tr>
+</tbody>
+</table>
+<p>此外，$0变量是指整条记录，$1表示当前行的第一个域，$2表示当前行的第二个域，$NF表示当前行的最后一个域，以此类推。</p>
+<p><strong>示例</strong>：统计/etc/group/每行的文件名、行号、每行的列数、每行的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;&#123; print &quot;filename: &quot; FILENAME &quot;, lines: &quot; NR &quot;, columns: &quot; NF &quot;, &quot; $0 &#125;&apos; /etc/group</div><div class="line">filename: /etc/group, lines: 1, columns: 4, root:x:0:root</div><div class="line">filename: /etc/group, lines: 2, columns: 4, bin:x:1:root,bin,daemon</div><div class="line">filename: /etc/group, lines: 3, columns: 4, daemon:x:2:root,bin,daemon</div><div class="line">filename: /etc/group, lines: 4, columns: 4, sys:x:3:root,bin,adm</div><div class="line">filename: /etc/group, lines: 5, columns: 4, adm:x:4:root,adm,daemon</div><div class="line">filename: /etc/group, lines: 6, columns: 4, tty:x:5:</div><div class="line">filename: /etc/group, lines: 7, columns: 4, disk:x:6:root</div><div class="line">filename: /etc/group, lines: 8, columns: 4, lp:x:7:daemon,lp</div></pre></td></tr></table></figure>
+<h1 id="awk编程"><a href="#awk编程" class="headerlink" title="awk编程"></a>awk编程</h1><h2 id="print和printf"><a href="#print和printf" class="headerlink" title="print和printf"></a>print和printf</h2><p>awk中同时提供了print和printf两种打印输出的函数。</p>
+<p>其中print函数的参数可以是变量、数值或者字符串。字符串必须用双引号引用，参数用逗号分隔。如果没有逗号，参数就串联在一起而无法区分。这里，逗号的作用与输出文件的分隔符的作用是一样的，只是后者是空格而已。</p>
+<p>printf函数，其用法和c语言中printf基本相似,可以格式化字符串,输出复杂时，printf更加好用，代码更易懂。</p>
+<p>上个示例使用<code>printf</code>替代<code>print</code>的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;&#123; printf(&quot;filename: %10s, lines: %s, columns: %s, %s\n&quot;,FILENAME,NR,NF,$0) &#125;&apos; /etc/group</div></pre></td></tr></table></figure>
+<h2 id="指定分隔符"><a href="#指定分隔符" class="headerlink" title="指定分隔符"></a>指定分隔符</h2><p>awk默认域分隔符是”tab”或者空格，使用-F指定分隔符，你可以同时指定多个分隔符，每个分隔符用’|’分割。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ echo &quot;a:b c,d&quot; | awk -F &quot; |,|:&quot; &apos;&#123;print $1; print $2; print $NF&#125;&apos;</div><div class="line">a</div><div class="line">b</div><div class="line">d</div></pre></td></tr></table></figure>
+<h2 id="BEGIN、END用法"><a href="#BEGIN、END用法" class="headerlink" title="BEGIN、END用法"></a>BEGIN、END用法</h2><p>awk工作流程是这样的：先执行BEGIN操作，然后读取文件，读入有’\n’换行符分割的一条记录，然后将记录按指定的域分隔符（-F 指定）划分域，填充域，$0则表示所有域,$1表示第一个域,$n表示第n个域。随后开始执行模式所对应的动作action,接着开始读入第二条记录···直到所有的记录都读完，最后执行END操作。</p>
+<p><strong>示例1</strong>：有BEGIN有END：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;BEGIN &#123;print &quot;start..&quot;&#125; &#123;print &quot;group name: &quot;$1; print &quot;group users: &quot;$3&#125; END &#123;print &quot;end..&quot;&#125;&apos; group</div><div class="line">start..</div><div class="line">group name: root</div><div class="line">group users: root</div><div class="line">group name: bin</div><div class="line">group users: root,bin,daemon</div><div class="line">group name: daemon</div><div class="line">group users: root,bin,daemon</div><div class="line">group name: sys</div><div class="line">group users: root,bin,adm</div><div class="line">group name: adm</div><div class="line">group users: root,adm,daemon</div><div class="line">....</div><div class="line">end..</div></pre></td></tr></table></figure>
+<p><strong>示例2</strong>：只有END：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ awk -F &apos;:&apos; &apos;&#123;print &quot;start..&quot;&#125; &#123;print &quot;group name: &quot;$1; print &quot;group users: &quot;$3&#125; END &#123;print &quot;end..&quot;&#125;&apos; group</div><div class="line">start..</div><div class="line">group name: root</div><div class="line">group users: root</div><div class="line">start..</div><div class="line">group name: bin</div><div class="line">group users: root,bin,daemon</div><div class="line">start..</div><div class="line">group name: daemon</div><div class="line">group users: root,bin,daemon</div><div class="line">start..</div><div class="line">group name: sys</div><div class="line">group users: root,bin,adm</div><div class="line">start..</div><div class="line">group name: adm</div><div class="line">group users: root,adm,daemon</div><div class="line">....</div><div class="line">end..</div></pre></td></tr></table></figure></p>
+<h2 id="使用数组"><a href="#使用数组" class="headerlink" title="使用数组"></a>使用数组</h2><h3 id="一维数组"><a href="#一维数组" class="headerlink" title="一维数组"></a>一维数组</h3><p>因为awk中一维数组的下标可以是数字和字母，数组的下标通常被称为关键字(key)，值和关键字都存储在key/value格式的hash表中。由于hash不是顺序存储，因此在显示数组内容时会发现，它们并不是按照你预料的顺序显示出来的。数组和变量一样，都是在使用时自动创建的，awk也同样会自动判断其存储的是数字还是字符串。一般而言，awk中的数组用来从记录中收集信息，可以用于计算总和、统计单词以及跟踪模板被匹配的次数等等。</p>
+<p><strong>示例</strong>：我们要统计access_log日志每秒访问次数，并按倒序排：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$ cat access_log </div><div class="line">  1 12/May/2016:02:53:51    &quot;GET /index&quot; </div><div class="line">  2 12/May/2016:02:53:50    &quot;GET /index&quot; </div><div class="line">  3 12/May/2016:02:53:50    &quot;GET /index&quot; </div><div class="line">  4 12/May/2016:02:52:51    &quot;GET /index&quot; </div><div class="line">  5 12/May/2016:02:52:51    &quot;GET /index&quot; </div><div class="line">  6 12/May/2016:02:53:51    &quot;GET /index&quot; </div><div class="line">  7 12/May/2016:02:52:51    &quot;GET /index&quot; </div><div class="line">  8 12/May/2016:02:52:51    &quot;GET /index&quot; </div><div class="line">  9 12/May/2016:02:53:49    &quot;GET /index&quot; </div><div class="line"> 10 12/May/2016:02:53:50    &quot;GET /index&quot; </div><div class="line"> 11 12/May/2016:02:43:51    &quot;GET /index&quot; </div><div class="line"> 12 12/May/2016:02:33:51    &quot;GET /index&quot; </div><div class="line"> 13 12/May/2016:02:53:49    &quot;GET /index&quot; </div><div class="line"> 14 12/May/2016:02:53:50    &quot;GET /index&quot; </div><div class="line"> 15 12/May/2016:02:53:50    &quot;GET /index&quot; </div><div class="line"> 16 12/May/2016:02:43:51    &quot;GET /index&quot; </div><div class="line"> 17 12/May/2016:02:53:51    &quot;GET /index&quot; </div><div class="line"> 18 12/May/2016:02:43:51    &quot;GET /index&quot;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ awk &apos;&#123; counts[$2]++; &#125;; END&#123;for(time in counts) print counts[time] &quot; &quot; time&#125;&apos; access_log | sort -n</div><div class="line">1 12/May/2016:02:33:51</div><div class="line">2 12/May/2016:02:53:49</div><div class="line">3 12/May/2016:02:43:51</div><div class="line">3 12/May/2016:02:53:51</div><div class="line">4 12/May/2016:02:52:51</div><div class="line">5 12/May/2016:02:53:50</div></pre></td></tr></table></figure>
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><p>awk的多维数组的使用类似python中tuple数据结构，可以嵌套定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ awk &apos;BEGIN&#123; for(i=1;i&lt;=3;i++) &#123;for(j=1;j&lt;=3;j++) &#123;arr[i,j]=i*j; print i,&quot;*&quot;,j,&quot;=&quot;,arr[i,j]&#125;&#125;&#125;&apos;</div><div class="line">1 * 1 = 1</div><div class="line">1 * 2 = 2</div><div class="line">1 * 3 = 3</div><div class="line">2 * 1 = 2</div><div class="line">2 * 2 = 4</div><div class="line">2 * 3 = 6</div><div class="line">3 * 1 = 3</div><div class="line">3 * 2 = 6</div><div class="line">3 * 3 = 9</div></pre></td></tr></table></figure>
+<h2 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h2><p>awk的循环语句的写法和c语言中for、while、break、continue语法相同。</p>
+<h2 id="awk内置函数"><a href="#awk内置函数" class="headerlink" title="awk内置函数"></a>awk内置函数</h2><ul>
+<li><strong>int</strong>，把字符串转为整数</li>
+<li><strong>index</strong>，查找字符串</li>
+<li><strong>length</strong>，得到字符串、数组长度</li>
+<li><strong>match</strong>，检测字符串1是否包含字符串2，包含则返回第一次出现的位置，否则返回0</li>
+<li><strong>rand</strong>，生成随机数</li>
+<li><strong>split</strong>，按照某个分隔符，对字符串进行切割，切割后的放到<code>thearray</code>中，返回分割后数组的长度</li>
+<li><p><strong>sub</strong>，替换</p>
+<blockquote>
+<p>sub(a,b,s)，将s中出现的a字符串替换为b字符串</p>
+</blockquote>
+</li>
+<li><p><strong>substr</strong>，字符串截取</p>
+<blockquote>
+<p>substr(s, m, n)     s是要截取的字符串，m是开始点，从1开始，n是要截取的长度</p>
+</blockquote>
+</li>
+<li><p><strong>toupper</strong>，字符串转为大写</p>
+</li>
+<li><strong>tolower</strong>，字符串转为小写</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/WeChat-Pay.jpg" alt="liuyeliufeng WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/Alipay.jpg" alt="liuyeliufeng Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag">#linux</a>
+          
+            <a href="/tags/awk/" rel="tag">#awk</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/13/PHP字符集编码及函数解析/" rel="next" title="PHP字符集编码及函数解析">
+                <i class="fa fa-chevron-left"></i> PHP字符集编码及函数解析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/29/Mac下iTerm2替代secureCRT配置方法/" rel="prev" title="mac下iterm2替代secureCRT配置方法">
+                mac下iterm2替代secureCRT配置方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/15/Linux-awk命令详解/"
+           data-title="Linux awk命令详解" data-url="http://liuyeliufeng.github.io/2016/05/15/Linux-awk命令详解/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="liuyeliufeng" />
+          <p class="site-author-name" itemprop="name">liuyeliufeng</p>
+          <p class="site-description motion-element" itemprop="description">No pains, No gains. Keep Coding and Trying.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liuyeliufeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#awk入门实例"><span class="nav-number">3.</span> <span class="nav-text">awk入门实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#awk内置变量"><span class="nav-number">4.</span> <span class="nav-text">awk内置变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#awk编程"><span class="nav-number">5.</span> <span class="nav-text">awk编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#print和printf"><span class="nav-number">5.1.</span> <span class="nav-text">print和printf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定分隔符"><span class="nav-number">5.2.</span> <span class="nav-text">指定分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BEGIN、END用法"><span class="nav-number">5.3.</span> <span class="nav-text">BEGIN、END用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用数组"><span class="nav-number">5.4.</span> <span class="nav-text">使用数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一维数组"><span class="nav-number">5.4.1.</span> <span class="nav-text">一维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多维数组"><span class="nav-number">5.4.2.</span> <span class="nav-text">多维数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环语句"><span class="nav-number">5.5.</span> <span class="nav-text">循环语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk内置函数"><span class="nav-number">5.6.</span> <span class="nav-text">awk内置函数</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuyeliufeng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuyeliufeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MUoHMe5lntDXtJcKKuahdOpU-gzGzoHsz", "1iS7SRgP4O7ylEmKRq68l9zN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

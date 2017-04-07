@@ -1,0 +1,895 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="bo6QMu1YHIYW0TUVQ96L69yzJ7GzSx4Si5hpZRe4lHg" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="php,Redis," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="热门回复redis拉链设计（sorted set 多级字段排序）应用场景描述
+pb热门回复列表，规则为按照三个字段综合排序(优先按照点赞数排序、其次按照楼中楼数排序、最后按照最后回复时间排序)：
+
+回复点赞数agree_num
+回复楼中楼数comment_num
+回复的楼中楼最后回复时间last_reply_time
+
+
+实现思路这里探讨的主要有两种实现方案：
+
+方案一：使用DB/DDBS的ord">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis SortedSet多字段排序拉链设计">
+<meta property="og:url" content="http://liuyeliufeng.github.io/2017/03/07/Redis SortedSet多字段排序拉链设计/index.html">
+<meta property="og:site_name" content="XiaShanshan's Tech Blog">
+<meta property="og:description" content="热门回复redis拉链设计（sorted set 多级字段排序）应用场景描述
+pb热门回复列表，规则为按照三个字段综合排序(优先按照点赞数排序、其次按照楼中楼数排序、最后按照最后回复时间排序)：
+
+回复点赞数agree_num
+回复楼中楼数comment_num
+回复的楼中楼最后回复时间last_reply_time
+
+
+实现思路这里探讨的主要有两种实现方案：
+
+方案一：使用DB/DDBS的ord">
+<meta property="og:updated_time" content="2017-04-06T13:21:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis SortedSet多字段排序拉链设计">
+<meta name="twitter:description" content="热门回复redis拉链设计（sorted set 多级字段排序）应用场景描述
+pb热门回复列表，规则为按照三个字段综合排序(优先按照点赞数排序、其次按照楼中楼数排序、最后按照最后回复时间排序)：
+
+回复点赞数agree_num
+回复楼中楼数comment_num
+回复的楼中楼最后回复时间last_reply_time
+
+
+实现思路这里探讨的主要有两种实现方案：
+
+方案一：使用DB/DDBS的ord">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+  <title> Redis SortedSet多字段排序拉链设计 | XiaShanshan's Tech Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">XiaShanshan's Tech Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Redis SortedSet多字段排序拉链设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-07T15:05:35+08:00" content="2017-03-07">
+              2017-03-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术总结/" itemprop="url" rel="index">
+                    <span itemprop="name">技术总结</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/03/07/Redis SortedSet多字段排序拉链设计/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/07/Redis SortedSet多字段排序拉链设计/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/03/07/Redis SortedSet多字段排序拉链设计/" class="leancloud_visitors" data-flag-title="Redis SortedSet多字段排序拉链设计">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="热门回复redis拉链设计（sorted-set-多级字段排序）"><a href="#热门回复redis拉链设计（sorted-set-多级字段排序）" class="headerlink" title="热门回复redis拉链设计（sorted set 多级字段排序）"></a>热门回复redis拉链设计（sorted set 多级字段排序）</h1><h2 id="应用场景描述"><a href="#应用场景描述" class="headerlink" title="应用场景描述"></a>应用场景描述</h2><blockquote>
+<p>pb热门回复列表，规则为按照三个字段综合排序(优先按照点赞数排序、其次按照楼中楼数排序、最后按照最后回复时间排序)：</p>
+<ul>
+<li>回复点赞数<code>agree_num</code></li>
+<li>回复楼中楼数<code>comment_num</code></li>
+<li>回复的楼中楼最后回复时间<code>last_reply_time</code></li>
+</ul>
+</blockquote>
+<h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><p>这里探讨的主要有两种实现方案：</p>
+<ul>
+<li>方案一：使用<code>DB/DDBS</code>的<code>order by</code> 多级字段排序；</li>
+<li>方案二：<code>redis</code>的SortedSet提供类排行榜实现，底层使用skip list，排序和查询时间复杂度较低；</li>
+</ul>
+<a id="more"></a>
+<p>优缺点分析：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>方案一</td>
+<td>代码实现简单</td>
+<td>1、数据量膨胀后性能迅速降低<br>2、 不支持高并发场景<br>3、写qps较高时重建索引对性能损耗较大</td>
+</tr>
+<tr>
+<td>方案二</td>
+<td>1、查询时间复杂度为O(log(n))，耗时稳定 <br>2、内存型存储，支持较高qps</td>
+<td>占用redis集群内存资源</td>
+</tr>
+</tbody>
+</table>
+<h2 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h2><p>Sorted set底层基于跳跃表实现，查询的时间复杂度在O(log(n))。</p>
+<p>Redis中的SortedSet根据score的64位双精度浮点数的参数实现排序，可以表示浮点数或整数类型，作为浮点数score的取值范围为54位， 但是在实际应用中推荐将score当做64位长整型来使用。</p>
+<p>原因很简单: long的取值范围要大于double。</p>
+<blockquote>
+<p>long范围为[-(2^53), +(2^53)]，double范围为[-(2^63), +(2^63)-1]</p>
+</blockquote>
+<h2 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h2><h3 id="设计探讨"><a href="#设计探讨" class="headerlink" title="设计探讨"></a>设计探讨</h3><p>由于需要使用三个字段（<code>agree_num/comment_num/last_reply_time</code>）作为排序依据，所以如何把3个字段合并为1个字段计入score，是解决问题的关键。</p>
+<p>当score作为<code>64bit</code>长整型使用时，我们假设前提约束条件（楼层点赞数小于20万、楼中楼数小于20万）：</p>
+<blockquote>
+<p><code>agree_num</code> &lt;= 2097151 (2^21-1)<br><code>comment_num</code> &lt;= 4194303(2^22-1)</p>
+</blockquote>
+<p>这样<code>agree_num</code>和<code>comment_num</code>总共需要占用<em>44bit</em>，<code>last_reply_time</code>字段只有<em>20bit</em> 可用。</p>
+<p>但根据unix时间戳（精确到s），10位数字时间戳最大值至少需要<em>33bit</em>存储，关键问题转为如何优化时间戳的存储。</p>
+<h3 id="存储方案"><a href="#存储方案" class="headerlink" title="存储方案"></a>存储方案</h3><p>和业务pm沟通之后，产品上可以接受按回复时间排序时只精确到天级别，那么我们可以根据unix时间戳得到日期，如<code>20170329</code>，更极致的做法是将年份前两位<code>20</code>也去掉，只保留<code>170329</code>，10进制6位数字恰好使用<em>20bit</em>可以满足存储需求。</p>
+<h3 id="实现逻辑"><a href="#实现逻辑" class="headerlink" title="实现逻辑"></a>实现逻辑</h3><p>由于热门回复的排序逻辑中三个字段有不同的优先级，我们最先想到的实现方案是按bit位分割，优先级高的字段占据较高的bit段，优先级低的字段在较低的bit段。</p>
+<p>在64位机器下，php integer类型取值范围为<em>[-(2^63, +2^63-1]</em>，而热门回复的三个排序字段占位已优化为：</p>
+<blockquote>
+<p><code>agree_num</code> 22bit<br><code>comment_num</code> 22bit<br><code>last_reply_time</code> 20bit</p>
+</blockquote>
+<p>所以设置Sorted set的score实现代码就很简单了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$score = (int)$agree_num &lt;&lt; 42 | (int)$comment_num &lt;&lt; 20 | (int)$dayOfDate;</div><div class="line">$arrReq = array(</div><div class="line">    &apos;key&apos; =&gt; self::REDIS_KEY_PREFIX. $arrInput[&apos;thread_id&apos;],</div><div class="line">    &apos;members&apos; =&gt; array(</div><div class="line">        array(</div><div class="line">            &apos;score&apos; =&gt; $redisScore,</div><div class="line">            &apos;member&apos; =&gt; $arrInput[&apos;post_id&apos;],</div><div class="line">        ),</div><div class="line">    ),</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>实现思路：<code>agree_num</code>左移<em>42bit</em>，占位最高<em>22bit</em>，<code>comment_num</code>左移<em>20bit</em>，占位中间<em>22bit</em>，<code>dayOfDate</code>占位最低<em>20bit</em>。</p>
+<p>ps: 如何根据score获取原字段值？</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; $agree_num = $score &gt;&gt; 42;</div><div class="line">&gt; $comment_num = $score &gt;&gt; 20 &amp; ~(PHP_INT_MAX &lt;&lt; 20);</div><div class="line">&gt; $dayOfDate= $score &amp; ~(PHP_INT_MAX &lt;&lt; 20);</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>完美~</p>
+</blockquote>
+<h2 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h2><p>暂无</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
+<li><a href="https://redis.io/topics/indexes" target="_blank" rel="external">https://redis.io/topics/indexes</a></li>
+<li><a href="http://php.net/manual/zh/language.types.integer.php" target="_blank" rel="external">http://php.net/manual/zh/language.types.integer.php</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/WeChat-Pay.jpg" alt="liuyeliufeng WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/Alipay.jpg" alt="liuyeliufeng Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/" rel="tag">#php</a>
+          
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/07/php多字节字符串截取方法/" rel="next" title="php多字节字符串截取方法">
+                <i class="fa fa-chevron-left"></i> php多字节字符串截取方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/03/07/Redis SortedSet多字段排序拉链设计/"
+           data-title="Redis SortedSet多字段排序拉链设计" data-url="http://liuyeliufeng.github.io/2017/03/07/Redis SortedSet多字段排序拉链设计/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="liuyeliufeng" />
+          <p class="site-author-name" itemprop="name">liuyeliufeng</p>
+          <p class="site-description motion-element" itemprop="description">No pains, No gains. Keep Coding and Trying.</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/liuyeliufeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#热门回复redis拉链设计（sorted-set-多级字段排序）"><span class="nav-number">1.</span> <span class="nav-text">热门回复redis拉链设计（sorted set 多级字段排序）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景描述"><span class="nav-number">1.1.</span> <span class="nav-text">应用场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-number">1.2.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SortedSet"><span class="nav-number">1.3.</span> <span class="nav-text">SortedSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方案"><span class="nav-number">1.4.</span> <span class="nav-text">实现方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计探讨"><span class="nav-number">1.4.1.</span> <span class="nav-text">设计探讨</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储方案"><span class="nav-number">1.4.2.</span> <span class="nav-text">存储方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现逻辑"><span class="nav-number">1.4.3.</span> <span class="nav-text">实现逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能测试"><span class="nav-number">1.5.</span> <span class="nav-text">性能测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文档"><span class="nav-number">1.6.</span> <span class="nav-text">参考文档</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">liuyeliufeng</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"liuyeliufeng"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("MUoHMe5lntDXtJcKKuahdOpU-gzGzoHsz", "1iS7SRgP4O7ylEmKRq68l9zN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
