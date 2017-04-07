@@ -134,8 +134,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[使用FormData异步上传文件]]></title>
-      <url>/2016/11/06/%E4%BD%BF%E7%94%A8FormData%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</url>
+      <title><![CDATA[XMLHttpRequest接口FormData异步上传文件]]></title>
+      <url>/2016/11/06/XMLHttpRequest%E6%8E%A5%E5%8F%A3FormData%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</url>
       <content type="html"><![CDATA[<p>XMLHttpRequest Level 2添加了一个新的接口FormData.利用FormData对象,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的send()方法来异步的提交这个”表单”.比起普通的ajax,使用FormData的最大优点就是我们可以异步上传一个二进制文件.</p>
 <h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><h2 id="new-FormData-form-HTMLFormElement"><a href="#new-FormData-form-HTMLFormElement" class="headerlink" title="new FormData (form? : HTMLFormElement)"></a>new FormData (form? : HTMLFormElement)</h2><p>参数</p>
 <p><strong>form (可选)</strong></p>
