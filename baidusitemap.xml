@@ -4,7 +4,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2017/05/05/Hexo-Minos%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</loc>
+    <loc>http://blog.liuyeliufeng.com/2017/05/05/Hexo-Minos%E4%B8%BB%E9%A2%98%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2017-05-05T06:45:49.000Z</lastmod>
     <data>
         <display>
@@ -18,7 +18,7 @@
          
            
              
-              <breadCrumb title="Hexo" url="http://liuyeliufeng.github.io/categories/Hexo/"/>
+              <breadCrumb title="Hexo" url="http://blog.liuyeliufeng.com/categories/Hexo/"/>
           
         </display>
     </data>
@@ -28,21 +28,21 @@
     
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2017/03/07/Redis%20SortedSet%E5%A4%9A%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%E6%8B%89%E9%93%BE%E8%AE%BE%E8%AE%A1/</loc>
+    <loc>http://blog.liuyeliufeng.com/2017/03/07/Redis%20SortedSet%E5%A4%9A%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%E6%8B%89%E9%93%BE%E8%AE%BE%E8%AE%A1/</loc>
     <lastmod>2017-05-05T05:22:51.000Z</lastmod>
     <data>
         <display>
         <title>Redis SortedSet多字段排序拉链设计</title>
         <pubTime>2017-03-07T07:05:35.000Z</pubTime>
         
-        <tag>Redis</tag>
-         
         <tag>php</tag>
+         
+        <tag>Redis</tag>
          
          
            
              
-              <breadCrumb title="技术总结" url="http://liuyeliufeng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+              <breadCrumb title="技术总结" url="http://blog.liuyeliufeng.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -50,7 +50,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/11/07/php%E5%A4%9A%E5%AD%97%E8%8A%82%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/11/07/php%E5%A4%9A%E5%AD%97%E8%8A%82%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2017-05-04T11:12:28.000Z</lastmod>
     <data>
         <display>
@@ -62,7 +62,7 @@
          
            
              
-              <breadCrumb title="技术总结" url="http://liuyeliufeng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+              <breadCrumb title="技术总结" url="http://blog.liuyeliufeng.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -70,7 +70,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/11/06/XMLHttpRequest%E6%8E%A5%E5%8F%A3FormData%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/11/06/XMLHttpRequest%E6%8E%A5%E5%8F%A3FormData%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2017-04-07T05:06:44.000Z</lastmod>
     <data>
         <display>
@@ -84,7 +84,7 @@
          
            
              
-              <breadCrumb title="HTTP协议" url="http://liuyeliufeng.github.io/categories/HTTP%E5%8D%8F%E8%AE%AE/"/>
+              <breadCrumb title="HTTP协议" url="http://blog.liuyeliufeng.com/categories/HTTP%E5%8D%8F%E8%AE%AE/"/>
           
         </display>
     </data>
@@ -92,7 +92,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2017/04/07/%E5%9F%B9%E5%85%BB%E4%BD%A0%E7%9A%84%E4%BA%BA%E7%94%9F%E8%A7%82/</loc>
+    <loc>http://blog.liuyeliufeng.com/2017/04/07/%E5%9F%B9%E5%85%BB%E4%BD%A0%E7%9A%84%E4%BA%BA%E7%94%9F%E8%A7%82/</loc>
     <lastmod>2017-04-07T02:10:25.000Z</lastmod>
     <data>
         <display>
@@ -104,7 +104,7 @@
          
            
              
-              <breadCrumb title="生活感悟" url="http://liuyeliufeng.github.io/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
+              <breadCrumb title="生活感悟" url="http://blog.liuyeliufeng.com/categories/%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/"/>
           
         </display>
     </data>
@@ -112,7 +112,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/05/13/Windows%E4%B8%8BZookeeper%E4%BC%AA%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/05/13/Windows%E4%B8%8BZookeeper%E4%BC%AA%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2017-04-06T12:47:47.000Z</lastmod>
     <data>
         <display>
@@ -126,7 +126,7 @@
          
            
              
-              <breadCrumb title="技术栈" url="http://liuyeliufeng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+              <breadCrumb title="技术栈" url="http://blog.liuyeliufeng.com/categories/%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
           
         </display>
     </data>
@@ -134,7 +134,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/05/13/python%E5%8F%8D%E8%BD%AClist-array-tuple/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/05/13/python%E5%8F%8D%E8%BD%AClist-array-tuple/</loc>
     <lastmod>2017-04-06T12:47:36.000Z</lastmod>
     <data>
         <display>
@@ -146,7 +146,7 @@
          
            
              
-              <breadCrumb title="技术总结" url="http://liuyeliufeng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+              <breadCrumb title="技术总结" url="http://blog.liuyeliufeng.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -154,7 +154,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/05/13/PHP%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81%E5%8F%8A%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/05/13/PHP%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81%E5%8F%8A%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90/</loc>
     <lastmod>2017-04-06T12:47:22.000Z</lastmod>
     <data>
         <display>
@@ -166,7 +166,7 @@
          
            
              
-              <breadCrumb title="技术总结" url="http://liuyeliufeng.github.io/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
+              <breadCrumb title="技术总结" url="http://blog.liuyeliufeng.com/categories/%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/"/>
           
         </display>
     </data>
@@ -174,7 +174,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/11/06/%E7%90%86%E8%A7%A3HTTP%E4%B9%8BContent-Type/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/11/06/%E7%90%86%E8%A7%A3HTTP%E4%B9%8BContent-Type/</loc>
     <lastmod>2017-04-06T12:45:37.000Z</lastmod>
     <data>
         <display>
@@ -188,7 +188,7 @@
          
            
              
-              <breadCrumb title="HTTP协议" url="http://liuyeliufeng.github.io/categories/HTTP%E5%8D%8F%E8%AE%AE/"/>
+              <breadCrumb title="HTTP协议" url="http://blog.liuyeliufeng.com/categories/HTTP%E5%8D%8F%E8%AE%AE/"/>
           
         </display>
     </data>
@@ -196,7 +196,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/10/29/Mac%E4%B8%8BiTerm2%E6%9B%BF%E4%BB%A3secureCRT%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/10/29/Mac%E4%B8%8BiTerm2%E6%9B%BF%E4%BB%A3secureCRT%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/</loc>
     <lastmod>2017-04-06T12:43:10.000Z</lastmod>
     <data>
         <display>
@@ -210,7 +210,7 @@
          
            
              
-              <breadCrumb title="Mac效率提升" url="http://liuyeliufeng.github.io/categories/Mac%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/"/>
+              <breadCrumb title="Mac效率提升" url="http://blog.liuyeliufeng.com/categories/Mac%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/"/>
           
         </display>
     </data>
@@ -218,7 +218,7 @@
 
     
   <url>
-    <loc>http://liuyeliufeng.github.io/2016/05/15/Linux-awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    <loc>http://blog.liuyeliufeng.com/2016/05/15/Linux-awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2017-04-06T12:35:42.000Z</lastmod>
     <data>
         <display>
@@ -232,7 +232,7 @@
          
            
              
-              <breadCrumb title="linux命令详解" url="http://liuyeliufeng.github.io/categories/linux%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
+              <breadCrumb title="linux命令详解" url="http://blog.liuyeliufeng.com/categories/linux%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/"/>
           
         </display>
     </data>
