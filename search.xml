@@ -3,6 +3,79 @@
   
     
     <entry>
+      <title><![CDATA[2.Add Two Numbers]]></title>
+      <url>/2017/08/13/Leetcode-2-Add-Two-Numbers/</url>
+      <content type="html"><![CDATA[<h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><blockquote>
+<p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
+<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
+<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8</p>
+</blockquote>
+<p>LeetCode link: <a href="https://leetcode.com/problems/add-two-numbers/description/" target="_blank" rel="external">Add Two Numbers</a></p>
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Definition for singly-linked list.</div><div class="line"> * public class ListNode &#123;</div><div class="line"> *     int val;</div><div class="line"> *     ListNode next;</div><div class="line"> *     ListNode(int x) &#123; val = x; &#125;</div><div class="line"> * &#125;</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">        ListNode l = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        ListNode start = l;</div><div class="line">        <span class="keyword">int</span> nVal = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(l1 != <span class="keyword">null</span> || l2 != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">int</span> l1Val = l1 == <span class="keyword">null</span> ? <span class="number">0</span> : l1.val;</div><div class="line">            <span class="keyword">int</span> l2Val = l2 == <span class="keyword">null</span> ? <span class="number">0</span> : l2.val;</div><div class="line">            </div><div class="line">            <span class="keyword">int</span> val = (l1Val + l2Val + nVal) % <span class="number">10</span>;</div><div class="line">            nVal = (l1Val + l2Val + nVal) / <span class="number">10</span>;</div><div class="line">            </div><div class="line">            start.next = <span class="keyword">new</span> ListNode(val);</div><div class="line">            start = start.next;</div><div class="line">            </div><div class="line">            <span class="keyword">if</span> (l1 != <span class="keyword">null</span>) &#123;</div><div class="line">                l1 = l1.next;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (l2 != <span class="keyword">null</span>) &#123;</div><div class="line">                l2 = l2.next;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (nVal &gt; <span class="number">0</span>) &#123;</div><div class="line">            start.next = <span class="keyword">new</span> ListNode(nVal);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> l.next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
+      
+        <categories>
+            
+            <category> LeetCode刷题 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> LeetCode </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[自我提升学习规划]]></title>
+      <url>/2017/06/22/%E5%8D%8A%E5%B9%B4%E6%9C%9F%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92%EF%BC%88201706-201701%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h1 id="201706-201701"><a href="#201706-201701" class="headerlink" title="201706-201701"></a>201706-201701</h1><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><ul>
+<li>Leetcode算法系列</li>
+<li>github</li>
+</ul>
+<h2 id="技术博客"><a href="#技术博客" class="headerlink" title="技术博客"></a>技术博客</h2><ul>
+<li>完成Leetcode算法系列博客</li>
+<li>完成Java学习系列笔记</li>
+<li>完成Php学习系列笔记</li>
+<li>机器学习算法学习与实战系列</li>
+</ul>
+<h2 id="读书"><a href="#读书" class="headerlink" title="读书"></a>读书</h2><ul>
+<li>机器学习实战</li>
+</ul>
+<h2 id="技术实战"><a href="#技术实战" class="headerlink" title="技术实战"></a>技术实战</h2><ul>
+<li>秒杀系统设计与实现方案（Java/Php）</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> 技术规划 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 技术规划 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[高并发秒杀系统设计探讨]]></title>
+      <url>/2017/06/22/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%8E%A2%E8%AE%A8/</url>
+      <content type="html"><![CDATA[<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://my.oschina.net/xianggao/blog/524943" target="_blank" rel="external">https://my.oschina.net/xianggao/blog/524943</a></li>
+</ul>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[算法学习-DP之动态规划]]></title>
       <url>/2017/06/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-DP%E4%B9%8B%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
       <content type="html"><![CDATA[<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>1.<a href="http://www.hawstein.com/posts/dp-novice-to-advanced.html" target="_blank" rel="external">http://www.hawstein.com/posts/dp-novice-to-advanced.html</a><br>2.<a href="http://wiki.jikexueyuan.com/project/easy-learn-algorithm/amazing-priority-array.html" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/easy-learn-algorithm/amazing-priority-array.html</a></p>
