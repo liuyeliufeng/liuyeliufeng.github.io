@@ -1,33 +1,51 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-
-
-  <meta name="google-site-verification" content="bo6QMu1YHIYW0TUVQ96L69yzJ7GzSx4Si5hpZRe4lHg" />
-
-
-
-
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="baidu-site-verification" content="l3Akmbzt7Y" />
+  <meta name="description" content="XMLHttpRequest接口FormData异步上传文件"/>
 
+
+
+
+  <meta name="keywords" content="HTTP, XMLHttpRequest, 柳叶流枫" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="柳叶流枫">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://blog.liuyeliufeng.com/2016/11/06/XMLHttpRequest接口FormData异步上传文件/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
 
 
 
@@ -35,897 +53,406 @@
 
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="HTTP,XMLHttpRequest," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="XMLHttpRequest Level 2添加了一个新的接口FormData.利用FormData对象,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的send()方法来异步的提交这个”表单”.比起普通的ajax,使用FormData的最大优点就是我们可以异步上传一个二进制文件.
-构造函数new FormData (form? : H">
-<meta property="og:type" content="article">
-<meta property="og:title" content="XMLHttpRequest接口FormData异步上传文件">
-<meta property="og:url" content="http://blog.liuyeliufeng.com/2016/11/06/XMLHttpRequest接口FormData异步上传文件/index.html">
-<meta property="og:site_name" content="柳叶流枫">
-<meta property="og:description" content="XMLHttpRequest Level 2添加了一个新的接口FormData.利用FormData对象,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的send()方法来异步的提交这个”表单”.比起普通的ajax,使用FormData的最大优点就是我们可以异步上传一个二进制文件.
-构造函数new FormData (form? : H">
-<meta property="og:updated_time" content="2017-04-07T05:06:44.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="XMLHttpRequest接口FormData异步上传文件">
-<meta name="twitter:description" content="XMLHttpRequest Level 2添加了一个新的接口FormData.利用FormData对象,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的send()方法来异步的提交这个”表单”.比起普通的ajax,使用FormData的最大优点就是我们可以异步上传一个二进制文件.
-构造函数new FormData (form? : H">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
 
-  <link rel="canonical" href="http://blog.liuyeliufeng.com/2016/11/06/XMLHttpRequest接口FormData异步上传文件/"/>
+    <title> XMLHttpRequest接口FormData异步上传文件 - 柳叶流枫 </title>
+  </head>
 
-
-
-
-
-  <title> XMLHttpRequest接口FormData异步上传文件 | 柳叶流枫 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">柳叶流枫</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">柳叶流枫</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-<nav class="site-nav">
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
 
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">柳叶流枫</a>
+</div>
+
+<nav class="site-navbar">
   
     <ul id="menu" class="menu">
       
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+              Home
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            分类
+              Archives
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            标签
+              Tags
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+              Categories
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            关于
+              About
+            
           </a>
         </li>
-      
-
       
     </ul>
   
-
-  
 </nav>
 
+      </header>
 
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+      <main id="main" class="main">
+        <div class="content-wrapper">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
-    
-
   
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.liuyeliufeng.com/2016/11/06/XMLHttpRequest接口FormData异步上传文件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liuyeliufeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柳叶流枫">
-    </span>
-
-    
-      <header class="post-header">
-
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
         
+          XMLHttpRequest接口FormData异步上传文件
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                XMLHttpRequest接口FormData异步上传文件
-              
-            
-          </h1>
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-11-06
+        </span>
         
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-category">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T19:08:05+08:00">
-                2016-11-06
-              </time>
+              <a href="/categories/HTTP协议/">HTTP协议</a>
             
+          </div>
+        
+      </div>
+    </header>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP协议/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP协议</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/11/06/XMLHttpRequest接口FormData异步上传文件/" class="leancloud_visitors" data-flag-title="XMLHttpRequest接口FormData异步上传文件">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建FormData对象"><span class="toc-text">创建FormData对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML表单初始化FormData"><span class="toc-text">HTML表单初始化FormData</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用FormData发送文件"><span class="toc-text">使用FormData发送文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FormData异步上传大文件"><span class="toc-text">FormData异步上传大文件</span></a></li></ol>
+    </div>
+  </div>
 
 
-    <div class="post-body" itemprop="articleBody">
-
+    <div class="post-content">
       
-      
-
-      
-        <p>XMLHttpRequest Level 2添加了一个新的接口FormData.利用FormData对象,我们可以通过JavaScript用一些键值对来模拟一系列表单控件,我们还可以使用XMLHttpRequest的send()方法来异步的提交这个”表单”.比起普通的ajax,使用FormData的最大优点就是我们可以异步上传一个二进制文件.</p>
-<h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><h2 id="new-FormData-form-HTMLFormElement"><a href="#new-FormData-form-HTMLFormElement" class="headerlink" title="new FormData (form? : HTMLFormElement)"></a>new FormData (form? : HTMLFormElement)</h2><p>参数</p>
-<p><strong>form (可选)</strong></p>
-<p>一个HTML表单元素,可以包含任何形式的表单控件,包括文件输入框.</p>
-<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><h2 id="append"><a href="#append" class="headerlink" title="append()"></a>append()</h2><p>给当前FormData对象添加一个键/值对.</p>
+        <blockquote>
+<p><code>XMLHttpRequest Level 2</code>添加了一个新的接口<code>FormData</code>。利用<code>FormData</code>对象，我们可以通过JavaScript用一些键值对来模拟一系列表单控件，我们还可以使用<code>XMLHttpRequest</code>的<code>send()</code>方法来异步的提交这个表单。比起普通的ajax，使用<code>FormData</code>的最大优点就是我们可以异步上传一个二进制文件。</p>
+</blockquote>
+<h2 id="创建FormData对象"><a href="#创建FormData对象" class="headerlink" title="创建FormData对象"></a>创建FormData对象</h2><p>利用FormData对象，你可以使用一系列的键值对来模拟一个完整的表单，然后使用XMLHttpRequest发送表单.</p>
+<ul>
+<li>构造函数<br><code>new FormData (form? : HTMLFormElement)</code></li>
+<li><p>参数</p>
+<ul>
+<li><code>form (可选)</code>:一个HTML表单元素,可以包含任何形式的表单控件,包括文件输入框.</li>
+</ul>
+</li>
+<li><p>成员方法</p>
+<ul>
+<li><p>append()</p>
+<p>给当前FormData对象添加一个键/值对.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">void append(DOMString name, Blob value, optional DOMString filename);</div><div class="line">void append(DOMString name, DOMString value);</div></pre></td></tr></table></figure>
-<h2 id="参数值"><a href="#参数值" class="headerlink" title="参数值"></a>参数值</h2><p><strong>name</strong><br>    字段名称.<br><strong>value</strong><br>    字段值.可以是,或者一个字符串,如果全都不是,则该值会被自动转换成字符串.<br><strong>filename</strong><br>    (可选) 指定文件的文件名,当value参数被指定为一个Blob对象或者一个File对象时,该文件名会被发送到服务器上,对于Blob对象来说,这个值默认为”blob”.</p>
+</li>
+<li><p>参数值<br><code>name</code>: 字段名称.<br><code>value</code>: 字段值.可以是,或者一个字符串,如果全都不是,则该值会被自动转换成字符串.<br><code>filename</code>(可选): 指定文件的文件名,当value参数被指定为一个Blob对象或者一个File对象时,该文件名会被发送到服务器上,对于Blob对象来说,这个值默认为<code>blob</code>.</p>
+</li>
+</ul>
+</li>
+</ul>
 <a id="more"></a>
-<p>利用FormData对象,你可以使用一系列的键值对来模拟一个完整的表单,然后使用XMLHttpRequest发送这个”表单”.</p>
-<h1 id="创建一个FormData对象"><a href="#创建一个FormData对象" class="headerlink" title="创建一个FormData对象"></a>创建一个FormData对象</h1><p>你可以先创建一个空的FormData对象,然后使用append()方法向该对象里添加字段,如下:</p>
+<p>你可以先创建一个空的FormData对象，然后使用append()方法向该对象里添加字段，实现demo如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var oMyForm = new FormData();</div><div class="line"></div><div class="line">oMyForm.append(&quot;username&quot;, &quot;Groucho&quot;);</div><div class="line">oMyForm.append(&quot;accountnum&quot;, 123456); // 数字123456被立即转换成字符串&quot;123456&quot;</div><div class="line"></div><div class="line">// fileInputElement中已经包含了用户所选择的文件</div><div class="line">oMyForm.append(&quot;userfile&quot;, fileInputElement.files[0]);</div><div class="line"></div><div class="line">var oFileBody = &apos;&lt;a id=&quot;a&quot;&gt;&lt;b id=&quot;b&quot;&gt;hey!&lt;/b&gt;&lt;/a&gt;&apos;; // Blob对象包含的文件内容</div><div class="line">var oBlob = new Blob([oFileBody], &#123; type: &quot;text/xml&quot;&#125;);</div><div class="line"></div><div class="line">oMyForm.append(&quot;webmasterfile&quot;, oBlob);</div><div class="line"></div><div class="line">var oReq = new XMLHttpRequest();</div><div class="line">oReq.open(&quot;POST&quot;, &quot;http://foo.com/submitform.php&quot;);</div><div class="line">oReq.send(oMyForm);</div></pre></td></tr></table></figure>
-<p>注: 字段”userfile”和”webmasterfile”的值都包含了一个文件.通过 FormData.append()方法赋给字段”accountnum”的数字被自动转换为字符(字段的值可以是一个Blob对象,一个File对象,或者一个字符串,剩下其他类型的值都会被自动转换成字符串).<br>在该例子中,我们创建了一个名为oMyForm的FormData对象,该对象中包含了名为”username”, “accountnum”, “userfile” 以及 “webmasterfile”的字段名,然后使用XMLHttpRequest的send()方法把这些数据发送了出去.”webmasterfile”字段的值不是一个字符串,还是一个Blob对象.</p>
-<h1 id="使用HTML表单来初始化一个FormData对象"><a href="#使用HTML表单来初始化一个FormData对象" class="headerlink" title="使用HTML表单来初始化一个FormData对象"></a>使用HTML表单来初始化一个FormData对象</h1><p>可以用一个已有的<code>&lt;form&gt;</code>元素来初始化FormData对象,只需要把这个form元素作为参数传入FormData构造函数即可:</p>
+<blockquote>
+<p>注: 字段<code>userfile</code>和<code>webmasterfile</code>的值都包含了一个文件。通过 <code>FormData.append()</code>方法赋给字段<code>accountnum</code>的数字被自动转换为字符(字段的值可以是一个Blob对象，一个File对象，或者一个字符串，剩下其他类型的值都会被自动转换成字符串)。</p>
+</blockquote>
+<p>在该例子中，我们创建了一个名为oMyForm的FormData对象，该对象中包含了名为<code>username</code>, <code>accountnum</code>, <code>userfile</code> 以及 <code>webmasterfile</code>的字段名，然后使用<code>XMLHttpRequest</code>的<code>send()</code>方法把这些数据发送了出去。<code>webmasterfile</code>字段的值不是一个字符串，还是一个Blob对象。</p>
+<h2 id="HTML表单初始化FormData"><a href="#HTML表单初始化FormData" class="headerlink" title="HTML表单初始化FormData"></a>HTML表单初始化FormData</h2><p>可以用一个已有的<code>&lt;form&gt;</code>元素来初始化FormData对象,只需要把这个form元素作为参数传入FormData构造函数即可:</p>
 <p><code>var newFormData = new FormData(someFormElement);</code></p>
 <p>例如:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var formElement = document.getElementById(&quot;myFormElement&quot;);</div><div class="line">var oReq = new XMLHttpRequest();</div><div class="line">oReq.open(&quot;POST&quot;, &quot;submitform.php&quot;);</div><div class="line">oReq.send(new FormData(formElement));</div></pre></td></tr></table></figure>
 <p>你还可以在已有表单数据的基础上,继续添加新的键值对,如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var formElement = document.getElementById(&quot;myFormElement&quot;);</div><div class="line">formData = new FormData(formElement);</div><div class="line">formData.append(&quot;serialnumber&quot;, serialNumber++);</div><div class="line">oReq.send(formData);</div></pre></td></tr></table></figure>
 <p>你可以通过这种方式添加一些不想让用户编辑的固定字段,然后再发送.</p>
-<h1 id="使用FormData对象发送文件"><a href="#使用FormData对象发送文件" class="headerlink" title="使用FormData对象发送文件"></a>使用FormData对象发送文件</h1><p>你还可以使用FormData来发送二进制文件.首先在HTML中要有一个包含了文件输入框的form元素:</p>
+<h2 id="使用FormData发送文件"><a href="#使用FormData发送文件" class="headerlink" title="使用FormData发送文件"></a>使用FormData发送文件</h2><p>你还可以使用FormData来发送二进制文件.首先在HTML中要有一个包含了文件输入框的form元素:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&lt;form enctype=&quot;multipart/form-data&quot; method=&quot;post&quot; name=&quot;fileinfo&quot;&gt;</div><div class="line">  &lt;label&gt;Your email address:&lt;/label&gt;</div><div class="line">  &lt;input type=&quot;email&quot; autocomplete=&quot;on&quot; autofocus name=&quot;userid&quot; placeholder=&quot;email&quot; required size=&quot;32&quot; maxlength=&quot;64&quot; /&gt;&lt;br /&gt;</div><div class="line">  &lt;label&gt;Custom file label:&lt;/label&gt;</div><div class="line">  &lt;input type=&quot;text&quot; name=&quot;filelabel&quot; size=&quot;12&quot; maxlength=&quot;32&quot; /&gt;&lt;br /&gt;</div><div class="line">  &lt;label&gt;File to stash:&lt;/label&gt;</div><div class="line">  &lt;input type=&quot;file&quot; name=&quot;file&quot; required /&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;div id=&quot;output&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;a href=&quot;javascript:sendForm()&quot;&gt;Stash the file!&lt;/a&gt;</div></pre></td></tr></table></figure>
 <p>然后你就可以使用下面的代码来异步的上传用户所选择的文件:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function sendForm() &#123;</div><div class="line">  var oOutput = document.getElementById(&quot;output&quot;);</div><div class="line">  var oData = new FormData(document.forms.namedItem(&quot;fileinfo&quot;));</div><div class="line"></div><div class="line">  oData.append(&quot;CustomField&quot;, &quot;This is some extra data&quot;);</div><div class="line"></div><div class="line">  var oReq = new XMLHttpRequest();</div><div class="line">  oReq.open(&quot;POST&quot;, &quot;stash.php&quot;, true);</div><div class="line">  oReq.onload = function(oEvent) &#123;</div><div class="line">    if (oReq.status == 200) &#123;</div><div class="line">      oOutput.innerHTML = &quot;Uploaded!&quot;;</div><div class="line">    &#125; else &#123;</div><div class="line">      oOutput.innerHTML = &quot;Error &quot; + oReq.status + &quot; occurred uploading your file.&lt;br \/&gt;&quot;;</div><div class="line">    &#125;</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  oReq.send(oData);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>你还可以不借助HTML表单,直接向FormData对象中添加一个File对象或者一个Blob对象:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data.append(&quot;myfile&quot;, myBlob);</div></pre></td></tr></table></figure>
-<p>如果FormData对象中的某个字段值是一个Blob对象,则在发送http请求时,代表该Blob对象所包含文件的文件名的”Content-Disposition”请求头的值在不同的浏览器下有所不同,Firefox使用了固定的字符串”blob,”而Chrome使用了一个随机字符串.</p>
+<p>如果FormData对象中的某个字段值是一个Blob对象，则在发送http请求时，代表该Blob对象所包含文件的文件名的<code>Content-Disposition</code>请求头的值在不同的浏览器下有所不同，Firefox使用了固定的字符串<code>blob</code>，而Chrome使用了一个随机字符串。</p>
 <p>你还可以使用jQuery来发送FormData,但必须要正确的设置相关选项:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var fd = new FormData(document.getElementById(&quot;fileinfo&quot;));</div><div class="line">fd.append(&quot;CustomField&quot;, &quot;This is some extra data&quot;);</div><div class="line">$.ajax(&#123;</div><div class="line">  url: &quot;stash.php&quot;,</div><div class="line">  type: &quot;POST&quot;,</div><div class="line">  data: fd,</div><div class="line">  processData: false,  // 告诉jQuery不要去处理发送的数据</div><div class="line">  contentType: false   // 告诉jQuery不要去设置Content-Type请求头</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>注：不要显式地设置<code>contentType</code>为<code>multipart/form-data</code></p>
-<h1 id="FormData异步上传大文件"><a href="#FormData异步上传大文件" class="headerlink" title="FormData异步上传大文件"></a><code>FormData</code>异步上传大文件</h1><p>下面给出一个完整的使用<code>FormData</code>以及<code>XMLHttpRequest</code>上传大文件的例子：</p>
+<blockquote>
+<p>注：不要显式地设置<code>contentType</code>为<code>multipart/form-data</code>。</p>
+</blockquote>
+<h2 id="FormData异步上传大文件"><a href="#FormData异步上传大文件" class="headerlink" title="FormData异步上传大文件"></a>FormData异步上传大文件</h2><p>下面给出一个完整的使用<code>FormData</code>以及<code>XMLHttpRequest</code>上传大文件的例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head lang=&quot;en&quot;&gt;</div><div class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</div><div class="line">    &lt;title&gt;大文件上传实例&lt;/title&gt;</div><div class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">        const BYTES_PER_CHUNK = 1024 * 1024; // 每个文件切片大小定为1MB .</div><div class="line">        var slices;</div><div class="line">        var totalSlices;</div><div class="line"></div><div class="line">        //发送请求</div><div class="line">        function sendRequest() &#123;</div><div class="line"></div><div class="line">            var blob = document.getElementById(&apos;file&apos;).files[0];</div><div class="line"></div><div class="line">            var start = 0;</div><div class="line">            var end;</div><div class="line">            var index = 0;</div><div class="line"></div><div class="line">            // 计算文件切片总数</div><div class="line">            slices = Math.ceil(blob.size / BYTES_PER_CHUNK);</div><div class="line">            totalSlices= slices;</div><div class="line"></div><div class="line">            while(start &lt; blob.size) &#123;</div><div class="line">                end = start + BYTES_PER_CHUNK;</div><div class="line">                if(end &gt; blob.size) &#123;</div><div class="line">                    end = blob.size;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                uploadFile(blob, index, start, end);</div><div class="line"></div><div class="line">                start = end;</div><div class="line">                index++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        //上传文件</div><div class="line">        function uploadFile(blob, index, start, end) &#123;</div><div class="line">            var xhr;</div><div class="line">            var fd;</div><div class="line">            var chunk;</div><div class="line"></div><div class="line">            xhr = new XMLHttpRequest();</div><div class="line">            xhr.onreadystatechange = function() &#123;</div><div class="line">                if(xhr.readyState == 4) &#123;</div><div class="line">                    if(xhr.responseText) &#123;</div><div class="line">                        alert(xhr.responseText);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    slices--;</div><div class="line"></div><div class="line">                    // 如果所有文件切片都成功发送，发送文件合并请求。</div><div class="line">                    if(slices == 0) &#123;</div><div class="line">                        mergeFile(blob);</div><div class="line">                        alert(&apos;文件上传完毕&apos;);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;;</div><div class="line"></div><div class="line"></div><div class="line">            chunk =blob.slice(start,end);//切割文件</div><div class="line"></div><div class="line">            //构造form数据</div><div class="line">            fd = new FormData();</div><div class="line">            fd.append(&quot;file&quot;, chunk);</div><div class="line">            fd.append(&quot;name&quot;, blob.name);</div><div class="line">            fd.append(&quot;index&quot;, index);</div><div class="line"></div><div class="line">            xhr.open(&quot;POST&quot;, &quot;upload.php&quot;, true);</div><div class="line">            xhr.send(fd);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        function mergeFile(blob) &#123;</div><div class="line">            var xhr;</div><div class="line">            var fd;</div><div class="line"></div><div class="line">            xhr = new XMLHttpRequest();</div><div class="line"></div><div class="line">            fd = new FormData();</div><div class="line">            fd.append(&quot;name&quot;, blob.name);</div><div class="line">            fd.append(&quot;index&quot;, totalSlices);</div><div class="line"></div><div class="line">            xhr.open(&quot;POST&quot;, &quot;merge.php&quot;, true);</div><div class="line">            xhr.send(fd);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;input type=&quot;file&quot; id=&quot;file&quot;/&gt;</div><div class="line">&lt;button  onclick=&quot;sendRequest()&quot;&gt;上传&lt;/button&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p><code>upload.php</code>文件：</p>
+<ul>
+<li><code>upload.php</code>文件：</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line">//省略了文件接收判断isset部分</div><div class="line">//当前目录下建立一个uploads文件夹</div><div class="line">//接收文件名时进行转码，防止中文乱码。</div><div class="line">$target = &quot;uploads/&quot; .$_POST[&quot;name&quot;] . &apos;-&apos; . $_POST[&apos;index&apos;];</div><div class="line">move_uploaded_file($_FILES[&apos;file&apos;][&apos;tmp_name&apos;], $target);</div><div class="line"></div><div class="line">// Might execute too quickly.</div><div class="line">sleep(1);</div></pre></td></tr></table></figure>
-<p><code>merge.php</code>文件：</p>
+<ul>
+<li><code>merge.php</code>文件：</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&lt;?php</div><div class="line">//文件合并</div><div class="line">$target = &quot;uploads/&quot; .iconv(&quot;utf-8&quot;,&quot;gbk&quot;,$_POST[&quot;name&quot;]);</div><div class="line">$dst = fopen($target, &apos;wb&apos;);</div><div class="line"></div><div class="line">for($i = 0; $i &lt; $_POST[&apos;index&apos;]; $i++) &#123;</div><div class="line">    $slice = $target . &apos;-&apos; . $i;</div><div class="line">    $src = fopen($slice,&apos;rb&apos;);</div><div class="line">    stream_copy_to_stream($src, $dst);</div><div class="line">    fclose($src);</div><div class="line">    unlink($slice);</div><div class="line">&#125;</div><div class="line"></div><div class="line">fclose($dst);</div></pre></td></tr></table></figure>
 
       
     </div>
 
-    <div>
+    
       
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/WeChat-Pay.jpg" alt="liuyeliufeng WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/Alipay.jpg" alt="liuyeliufeng Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
-          
-            <a href="/tags/XMLHttpRequest/" rel="tag"># XMLHttpRequest</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
+          <div class="post-tags">
             
-              <a href="/2016/11/06/理解HTTP之Content-Type/" rel="next" title="理解HTTP之Content-Type">
-                <i class="fa fa-chevron-left"></i> 理解HTTP之Content-Type
-              </a>
+              <a href="/tags/HTTP/">HTTP</a>
+            
+              <a href="/tags/XMLHttpRequest/">XMLHttpRequest</a>
             
           </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/11/07/php多字节字符串截取方法/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">PHP多字节字符串截取方法</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/11/06/理解HTTP之Content-Type/">
+        <span class="next-text nav-default">理解Http协议之Content-Type</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
 
-          <span class="post-nav-divider"></span>
+      </footer>
+    
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/07/php多字节字符串截取方法/" rel="prev" title="php多字节字符串截取方法">
-                php多字节字符串截取方法 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
           </div>
-          
-
-
           
   <div class="comments" id="comments">
     
   </div>
 
 
-        </div>
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+          <a href="mailto:shans.xia@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/liuyeliufeng" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
 
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.jpg"
-               alt="liuyeliufeng" />
-          <p class="site-author-name" itemprop="name">liuyeliufeng</p>
-           
-              <p class="site-description motion-element" itemprop="description">No pains, No gains. Keep Coding and Trying.</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">16</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">17</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/liuyeliufeng" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  知乎
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new-FormData-form-HTMLFormElement"><span class="nav-number">1.1.</span> <span class="nav-text">new FormData (form? : HTMLFormElement)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#append"><span class="nav-number">2.1.</span> <span class="nav-text">append()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数值"><span class="nav-number">2.2.</span> <span class="nav-text">参数值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建一个FormData对象"><span class="nav-number">3.</span> <span class="nav-text">创建一个FormData对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用HTML表单来初始化一个FormData对象"><span class="nav-number">4.</span> <span class="nav-text">使用HTML表单来初始化一个FormData对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用FormData对象发送文件"><span class="nav-number">5.</span> <span class="nav-text">使用FormData对象发送文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FormData异步上传大文件"><span class="nav-number">6.</span> <span class="nav-text">FormData异步上传大文件</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
   </span>
-  <span class="author" itemprop="copyrightHolder">liuyeliufeng</span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">liuyeliufeng</span>
+  </span>
 </div>
+      </footer>
 
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-        
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
+    </div>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
+  
+
+
+
     
 
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
 
 
 
   
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("MUoHMe5lntDXtJcKKuahdOpU-gzGzoHsz", "1iS7SRgP4O7ylEmKRq68l9zN");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   
 
   
 
-  
 
-</body>
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
 </html>

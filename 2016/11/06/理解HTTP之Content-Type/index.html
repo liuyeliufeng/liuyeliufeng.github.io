@@ -1,33 +1,51 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    
+<meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-
-
-  <meta name="google-site-verification" content="bo6QMu1YHIYW0TUVQ96L69yzJ7GzSx4Si5hpZRe4lHg" />
-
-
-
-
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
 
-  <meta name="baidu-site-verification" content="l3Akmbzt7Y" />
+  <meta name="description" content="理解Http协议之Content-Type"/>
 
+
+
+
+  <meta name="keywords" content="HTTP, Content-Type, 柳叶流枫" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/default" title="柳叶流枫">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.5.0" />
+
+
+
+<link rel="canonical" href="http://blog.liuyeliufeng.com/2016/11/06/理解HTTP之Content-Type/"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.5.0" />
 
 
 
@@ -35,386 +53,209 @@
 
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="HTTP,Content-Type," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="About发送Restful API工具：Chrome插件POST Man
-在HTTP 1.1规范中，HTTP请求方式有OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT
-通常我们用的只有GET、POST，然而对于Restful API规范来说，请求资源要用PUT方法，删除资源要用DELETE方法。
-例如发送个DELETE包：
-http://example">
-<meta property="og:type" content="article">
-<meta property="og:title" content="理解HTTP之Content-Type">
-<meta property="og:url" content="http://blog.liuyeliufeng.com/2016/11/06/理解HTTP之Content-Type/index.html">
-<meta property="og:site_name" content="柳叶流枫">
-<meta property="og:description" content="About发送Restful API工具：Chrome插件POST Man
-在HTTP 1.1规范中，HTTP请求方式有OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT
-通常我们用的只有GET、POST，然而对于Restful API规范来说，请求资源要用PUT方法，删除资源要用DELETE方法。
-例如发送个DELETE包：
-http://example">
-<meta property="og:updated_time" content="2017-04-06T12:45:37.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解HTTP之Content-Type">
-<meta name="twitter:description" content="About发送Restful API工具：Chrome插件POST Man
-在HTTP 1.1规范中，HTTP请求方式有OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT
-通常我们用的只有GET、POST，然而对于Restful API规范来说，请求资源要用PUT方法，删除资源要用DELETE方法。
-例如发送个DELETE包：
-http://example">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
     }
-  };
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
 </script>
 
 
 
-  <link rel="canonical" href="http://blog.liuyeliufeng.com/2016/11/06/理解HTTP之Content-Type/"/>
+    <title> 理解Http协议之Content-Type - 柳叶流枫 </title>
+  </head>
 
-
-
-
-
-  <title> 理解HTTP之Content-Type | 柳叶流枫 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">柳叶流枫</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
-    </div>
-      
-        <p class="site-subtitle"></p>
-      
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">柳叶流枫</a>
   </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
-<nav class="site-nav">
-  
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
 
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">柳叶流枫</a>
+</div>
+
+<nav class="site-navbar">
   
     <ul id="menu" class="menu">
       
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+              Home
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
-            分类
+              Archives
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            标签
+              Tags
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+              Categories
+            
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            关于
+              About
+            
           </a>
         </li>
-      
-
       
     </ul>
   
-
-  
 </nav>
 
+      </header>
 
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
+      <main id="main" class="main">
+        <div class="content-wrapper">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
-    
-
   
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.liuyeliufeng.com/2016/11/06/理解HTTP之Content-Type/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="liuyeliufeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="柳叶流枫">
-    </span>
-
-    
-      <header class="post-header">
-
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
         
+          理解Http协议之Content-Type
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                理解HTTP之Content-Type
-              
-            
-          </h1>
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2016-11-06
+        </span>
         
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-category">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-06T18:34:36+08:00">
-                2016-11-06
-              </time>
+              <a href="/categories/HTTP协议/">HTTP协议</a>
             
+          </div>
+        
+      </div>
+    </header>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP协议/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP协议</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/11/06/理解HTTP之Content-Type/" class="leancloud_visitors" data-flag-title="理解HTTP之Content-Type">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
     
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#About"><span class="toc-text">About</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Content-Type"><span class="toc-text">Content-Type</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#application-x-www-form-urlencoded"><span class="toc-text">application/x-www-form-urlencoded</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#multipart-form-data"><span class="toc-text">multipart/form-data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#text-xml"><span class="toc-text">text/xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#application-json"><span class="toc-text">application/json</span></a></li></ol></li></ol>
+    </div>
+  </div>
 
 
-    <div class="post-body" itemprop="articleBody">
-
+    <div class="post-content">
       
-      
-
-      
-        <h1 id="About"><a href="#About" class="headerlink" title="About"></a>About</h1><p>发送Restful API工具：<a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?utm_source=chrome-ntp-icon" target="_blank" rel="external">Chrome插件POST Man</a></p>
+        <h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>发送Restful API工具：<a href="https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?utm_source=chrome-ntp-icon" target="_blank" rel="external">Chrome插件POST Man</a></p>
 <p>在HTTP 1.1规范中，HTTP请求方式有OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE、CONNECT</p>
 <p>通常我们用的只有GET、POST，然而对于Restful API规范来说，请求资源要用PUT方法，删除资源要用DELETE方法。</p>
 <p>例如发送个DELETE包：</p>
 <p><code>http://example.com/my/resource?id=12345</code></p>
 <p>那么通过id就能获取到信息，这个包只有header，并不存在body，下面讨论几个包含body的发包的body传输格式。</p>
-<h1 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h1><p>Content-Type用于指定内容类型，一般是指网页中存在的Content-Type，Content-Type属性指定请求和响应的HTTP内容类型。如果未指定 ContentType，默认为text/html。</p>
+<h2 id="Content-Type"><a href="#Content-Type" class="headerlink" title="Content-Type"></a>Content-Type</h2><p>Content-Type用于指定内容类型，一般是指网页中存在的Content-Type，Content-Type属性指定请求和响应的HTTP内容类型。如果未指定 ContentType，默认为text/html。</p>
 <p>在nginx中有个配置文件mime.types，主要是标示Content-Type的文件格式。</p>
 <a id="more"></a>
 <p>下面是几个常见的Content-Type:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1.text/html</div><div class="line">2.text/plain</div><div class="line">3.text/css</div><div class="line">4.text/javascript</div><div class="line">5.application/x-www-form-urlencoded</div><div class="line">6.multipart/form-data</div><div class="line">7.application/json</div><div class="line">8.application/xml</div><div class="line">...</div></pre></td></tr></table></figure>
 <p>前面几个都很好理解，都是html，css，javascript的文件类型，后面四个是POST的发包方式。</p>
-<h1 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application/x-www-form-urlencoded"></a>application/x-www-form-urlencoded</h1><p>application/x-www-form-urlencoded是常用的表单发包方式，普通的表单提交，或者js发包，默认都是通过这种方式，</p>
+<h3 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application/x-www-form-urlencoded"></a>application/x-www-form-urlencoded</h3><p>application/x-www-form-urlencoded是常用的表单发包方式，普通的表单提交，或者js发包，默认都是通过这种方式，</p>
 <p>比如一个简单地表单：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;form enctype=&quot;application/x-www-form-urlencoded&quot; action=&quot;http://homeway.me/post.php&quot; method=&quot;POST&quot;&gt;</div><div class="line">	&lt;input type=&quot;text&quot; name=&quot;name&quot; value=&quot;homeway&quot;&gt;</div><div class="line">	&lt;input type=&quot;text&quot; name=&quot;key&quot; value=&quot;nokey&quot;&gt;</div><div class="line">	&lt;input type=&quot;submit&quot; value=&quot;submit&quot;&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
 <p>那么服务器收到的raw header会类似：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</div><div class="line">Accept-Encoding:gzip, deflate</div><div class="line">Accept-Language:zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4,gl;q=0.2,de;q=0.2</div><div class="line">Cache-Control:no-cache</div><div class="line">Connection:keep-alive</div><div class="line">Content-Length:17</div><div class="line">Content-Type:application/x-www-form-urlencoded</div></pre></td></tr></table></figure>
 <p>那么服务器收到的raw body会是，name=homeway&amp;key=nokey，在php中，通过$_POST就可以获得数组形式的数据。</p>
-<h1 id="multipart-form-data"><a href="#multipart-form-data" class="headerlink" title="multipart/form-data"></a>multipart/form-data</h1><p>multipart/form-data用在发送文件的POST包。</p>
+<h3 id="multipart-form-data"><a href="#multipart-form-data" class="headerlink" title="multipart/form-data"></a>multipart/form-data</h3><p>multipart/form-data用在发送文件的POST包。</p>
 <p>这里假设我用python的request发送一个文件给服务器：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">data = &#123;</div><div class="line">	&quot;key1&quot;: &quot;123&quot;,</div><div class="line">	&quot;key2&quot;: &quot;456&quot;,</div><div class="line">&#125;</div><div class="line">files = &#123;&apos;file&apos;: open(&apos;index.py&apos;, &apos;rb&apos;)&#125;</div><div class="line">res = requests.post(url=&quot;http://localhost/upload&quot;, method=&quot;POST&quot;, data=data, files=files)</div><div class="line">print res</div></pre></td></tr></table></figure>
 <p>通过工具，可以看到我发送的数据内容如下：</p>
@@ -422,522 +263,178 @@ http://example">
 <p>这里Content-Type告诉我们，发包是以multipart/form-data格式来传输，另外，还有boundary用于分割数据。</p>
 <p>当文件太长，HTTP无法在一个包之内发送完毕，就需要分割数据，分割成一个一个chunk发送给服务端，</p>
 <p>那么–用于区分数据快，而后面的数据<code>633e61ebf351484f9124d63ce76d8469</code>就是标示区分包作用。</p>
-<h1 id="text-xml"><a href="#text-xml" class="headerlink" title="text/xml"></a>text/xml</h1><p>微信用的是这种数据格式发送请求的。</p>
+<h3 id="text-xml"><a href="#text-xml" class="headerlink" title="text/xml"></a>text/xml</h3><p>微信用的是这种数据格式发送请求的。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">POST http://www.homeway.me HTTP/1.1 </div><div class="line">Content-Type: text/xml</div><div class="line"></div><div class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</div><div class="line">&lt;resource&gt;</div><div class="line">    &lt;id&gt;123&lt;/id&gt;</div><div class="line">    &lt;params&gt;</div><div class="line">        &lt;name&gt;</div><div class="line">            &lt;value&gt;homeway&lt;/value&gt;</div><div class="line">        &lt;/name&gt;</div><div class="line">        &lt;age&gt;</div><div class="line">            &lt;value&gt;22&lt;/value&gt;</div><div class="line">        &lt;/age&gt;</div><div class="line">    &lt;/params&gt;</div><div class="line">&lt;/resource&gt;</div></pre></td></tr></table></figure>
 <p>php中<code>$_POST</code>只能读取<code>application/x-www-form-urlencoded</code>数据，<code>$_FILES</code>只能读取<code>multipart/form-data</code>类型数据，</p>
 <p>那么，要读取<code>text/xml</code>格式的数据，可以用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$file = fopen(‘php://input’, ‘rb’);</div><div class="line">$data = fread($file, length);</div><div class="line">fclose($file);</div></pre></td></tr></table></figure>
 <p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$data = file_get_contents(‘php://input’);</div></pre></td></tr></table></figure></p>
-<h1 id="application-json"><a href="#application-json" class="headerlink" title="application/json"></a>application/json</h1><p>通过json形式将数据发送给服务器，一开始，我尝试通过curl，给服务器发送application/json格式包，</p>
+<h3 id="application-json"><a href="#application-json" class="headerlink" title="application/json"></a>application/json</h3><p>通过json形式将数据发送给服务器，一开始，我尝试通过curl，给服务器发送application/json格式包，</p>
 <p>然而我收到的数据如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">—————————————e1e1406176ee348a Content-Disposition: form-data; name=”nid” 2 —————————————e1e1406176ee348a Content-Disposition: form-data; name=”uuid” cf9dc994-a4e7-3ad6-bc54-41965b2a0dd7 —————————————e1e1406176ee348a Content-Disposition: form-data; name=”access_token” 956731586df41229dbfec08dd5d54eedb98d73d2 —————————————e1e1406176ee348a—</div></pre></td></tr></table></figure>
 <p>后来想想明白了，HTTP通信中并不存在所谓的json，而是将string转成json罢了，也就是，<code>application/json</code>可以将它理解为<code>text/plain</code>，普通字符串。</p>
 <p>之所以出现那么多乱七八糟的——-应该是php数组传输进去，存在的转换问题吧（我目前能想到的原因）。</p>
-<p>转自<a href="http://homeway.me/2015/07/19/understand-http-about-content-type/" target="_blank" rel="external">http://homeway.me/2015/07/19/understand-http-about-content-type/</a></p>
+<ul>
+<li>转自<a href="http://homeway.me/2015/07/19/understand-http-about-content-type/" target="_blank" rel="external">http://homeway.me/2015/07/19/understand-http-about-content-type/</a></li>
+</ul>
 
       
     </div>
 
-    <div>
+    
       
+      
+
+
+
+      
+      
+    
+
+    
+      <footer class="post-footer">
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/WeChat-Pay.jpg" alt="liuyeliufeng WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/Alipay.jpg" alt="liuyeliufeng Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
-          
-            <a href="/tags/Content-Type/" rel="tag"># Content-Type</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
+          <div class="post-tags">
             
-              <a href="/2016/10/29/Mac下iTerm2替代secureCRT配置方法/" rel="next" title="mac下iterm2替代secureCRT配置方法">
-                <i class="fa fa-chevron-left"></i> mac下iterm2替代secureCRT配置方法
-              </a>
+              <a href="/tags/HTTP/">HTTP</a>
+            
+              <a href="/tags/Content-Type/">Content-Type</a>
             
           </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+      <a class="prev" href="/2016/11/06/XMLHttpRequest接口FormData异步上传文件/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text nav-default">XMLHttpRequest接口FormData异步上传文件</span>
+        <span class="prev-text nav-mobile">Prev</span>
+      </a>
+    
+    
+      <a class="next" href="/2016/10/29/Mac下iTerm2替代secureCRT配置方法/">
+        <span class="next-text nav-default">Mac下iterm2替代secureCRT配置方法</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
 
-          <span class="post-nav-divider"></span>
+      </footer>
+    
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/06/XMLHttpRequest接口FormData异步上传文件/" rel="prev" title="XMLHttpRequest接口FormData异步上传文件">
-                XMLHttpRequest接口FormData异步上传文件 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
-
-
           </div>
-          
-
-
           
   <div class="comments" id="comments">
     
   </div>
 
 
-        </div>
+        </div>  
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
         
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+          <a href="mailto:shans.xia@gmail.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        
+          <a href="https://github.com/liuyeliufeng" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+    
+    
+      
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
   </div>
 
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
 
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.jpg"
-               alt="liuyeliufeng" />
-          <p class="site-author-name" itemprop="name">liuyeliufeng</p>
-           
-              <p class="site-description motion-element" itemprop="description">No pains, No gains. Keep Coding and Trying.</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">16</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">17</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/liuyeliufeng" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  知乎
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#About"><span class="nav-number">1.</span> <span class="nav-text">About</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Content-Type"><span class="nav-number">2.</span> <span class="nav-text">Content-Type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#application-x-www-form-urlencoded"><span class="nav-number">3.</span> <span class="nav-text">application/x-www-form-urlencoded</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#multipart-form-data"><span class="nav-number">4.</span> <span class="nav-text">multipart/form-data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#text-xml"><span class="nav-number">5.</span> <span class="nav-text">text/xml</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#application-json"><span class="nav-number">6.</span> <span class="nav-text">application/json</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
   </span>
-  <span class="author" itemprop="copyrightHolder">liuyeliufeng</span>
+  
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2016 - 
+    
+    2017
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">liuyeliufeng</span>
+  </span>
 </div>
+      </footer>
 
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-        
-
-        
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
       </div>
-    </footer>
+    </div>
 
     
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
+  
+
+
+
     
 
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
 
 
 
   
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("MUoHMe5lntDXtJcKKuahdOpU-gzGzoHsz", "1iS7SRgP4O7ylEmKRq68l9zN");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
   
 
   
 
-  
 
-</body>
+    <script type="text/javascript" src="/js/src/even.js?v=2.5.0"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=2.5.0"></script>
+
+  </body>
 </html>
