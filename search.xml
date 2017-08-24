@@ -3,6 +3,34 @@
   
     
     <entry>
+      <title><![CDATA[推荐几个还不错的Hexo主题]]></title>
+      <url>/2017/08/24/%E6%8E%A8%E8%8D%90%E5%87%A0%E4%B8%AA%E8%BF%98%E4%B8%8D%E9%94%99%E7%9A%84Hexo%E4%B8%BB%E9%A2%98/</url>
+      <content type="html"><![CDATA[<ul>
+<li><a href="https://github.com/yanm1ng/hexo-theme-vexo" target="_blank" rel="external">vexo</a></li>
+<li><a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="external">maupassant</a></li>
+<li><a href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="external">even(本网站主题)</a></li>
+<li><a href="https://github.com/MikeCoder/hexo-theme-Gandalfr" target="_blank" rel="external">Gandalfr</a></li>
+<li><a href="https://github.com/Kaijun/hexo-theme-huxblog" target="_blank" rel="external">huxblog</a></li>
+</ul>
+<p>参考：<a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo主题gallery</a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Hexo </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[2.Add Two Numbers]]></title>
       <url>/2017/08/13/Leetcode-2-Add-Two-Numbers/</url>
       <content type="html"><![CDATA[<h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><blockquote>
@@ -262,8 +290,8 @@
     </entry>
     
     <entry>
-      <title><![CDATA[XMLHttpRequest接口FormData异步上传文件]]></title>
-      <url>/2016/11/06/XMLHttpRequest%E6%8E%A5%E5%8F%A3FormData%E5%BC%82%E6%AD%A5%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/</url>
+      <title><![CDATA[XMLHttpRequest FormData入门]]></title>
+      <url>/2016/11/06/XMLHttpRequest%20FormData%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<blockquote>
 <p><code>XMLHttpRequest Level 2</code>添加了一个新的接口<code>FormData</code>。利用<code>FormData</code>对象，我们可以通过JavaScript用一些键值对来模拟一系列表单控件，我们还可以使用<code>XMLHttpRequest</code>的<code>send()</code>方法来异步的提交这个表单。比起普通的ajax，使用<code>FormData</code>的最大优点就是我们可以异步上传一个二进制文件。</p>
 </blockquote>
@@ -404,13 +432,15 @@
     </entry>
     
     <entry>
-      <title><![CDATA[Mac下iterm2替代secureCRT配置方法]]></title>
-      <url>/2016/10/29/Mac%E4%B8%8BiTerm2%E6%9B%BF%E4%BB%A3secureCRT%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95/</url>
+      <title><![CDATA[Mac下iterm2替代secureCRT]]></title>
+      <url>/2016/10/29/Mac%E4%B8%8BiTerm2%E6%9B%BF%E4%BB%A3secureCRT/</url>
       <content type="html"><![CDATA[<p>最近在折腾iterm2的自动登录问题，由于之前一直在windows使用xshell作为我的ssh客户端，习惯了自动登录以及在远程机器上执行本地脚本（script），刚接触mac上iterm2很崩溃，虽然iterm2的分屏等操作极大方便了程序员的开发，但是日常经常通过跳板机登录线上机器，使我对于输入机器名密码登录很是头疼。xshell可以编辑快捷按钮并且自定义脚本方式达成目的，iterm2可是需要折腾一番。</p>
 <h1 id="Session复制"><a href="#Session复制" class="headerlink" title="Session复制"></a>Session复制</h1><p>windows下xshell和secureCRT等ssh客户端有个很大的优势就是可以复制会话，可以不用重复输入机器密码。</p>
 <p>ssh本身也提供了一种快捷的方式来解决这个问题，在 <code>~/.ssh/config</code> 文件中加入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Host *</div><div class="line">ControlMaster auto</div><div class="line">ControlPath ~/.ssh/master-%r@%h:%p</div></pre></td></tr></table></figure>
-<p>这样下次登录同一个站点时，即可复用之前的会话信息，我们可以在<code>~/.ssh/</code>目录看到<br><img src="/uploads/1942b8af4d43f54246c29abba.png" alt=""><br>这代表每次登录这个站点的时候其实是复用之前的会话句柄。</p>
+<p>这样下次登录同一个站点时，即可复用之前的会话信息，我们可以在<code>~/.ssh/</code>目录看到:</p>
+<p><img src="/uploads/mac-iterm2/e32d9bd762a8abf227954b107363f7b1.png" alt=""></p>
+<p>如果存在上图勾选的文件，这代表每次登录这个站点的时候其实是复用之前的会话句柄。</p>
 <a id="more"></a>
 <h1 id="登录远程机器"><a href="#登录远程机器" class="headerlink" title="登录远程机器"></a>登录远程机器</h1><p>登录远程机器通常有两种，一种是通过账号密码登录，另一种是基于密钥的安全认证，<code>ssh密钥认证自动登录</code>正是通过这种方式的安全认证，但是配置起来比较麻烦，这里不推荐，感兴趣的同学可以看这里<a href="https://segmentfault.com/a/1190000000481249" target="_blank" rel="external">配置ssh密钥认证自动登录</a>。下面我们介绍通过密码登录的配置方式。</p>
 <h2 id="可以直连的机器"><a href="#可以直连的机器" class="headerlink" title="可以直连的机器"></a>可以直连的机器</h2><p>xshell和secureCRT另一个很方便的功能就是，我们可以将登录机器的信息保存并使用快捷操作（保存成脚本或快捷命令），这样每次登录机器时就不用敲一堆机器名密码，最头疼的是我们根本也记不住这些用户名密码，iterm2有没有相应的解决方案呢？答案是肯定的。</p>
@@ -428,13 +458,15 @@
 </ul>
 <p>2.将脚本复制到<code>~/.ssh</code>目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv remote.exp ~/.ssh</div></pre></td></tr></table></figure></p>
 <p>3.设置调用命令</p>
-<p>iTerm – preferences 打开设置界面，配置如下：<br><img src="/uploads/5f7b238a183ff66cf3b57342c.png" alt=""></p>
+<p>iTerm – preferences 打开设置界面，配置如下：<br><img src="/uploads/mac-iterm2/5f7b238a183ff66cf3b57342c.png" alt=""></p>
 <h3 id="动态密码登录"><a href="#动态密码登录" class="headerlink" title="动态密码登录"></a>动态密码登录</h3><p>大公司中，使用动态密码登录跳板机的情况比较常见，动态密码一般是自己设置的6位密码+token的动态6位数字，这种方式看似复杂，其实我们可以通过两种情况看:</p>
-<ol>
-<li>已经通过动态密码登录过跳板机：【复制会话】会实现自动登录，配置方式同上；</li>
-<li>有的同学比较任性，之前没有登陆过跳板机，能不能实现一次操作直接登录跳板机和目标机器呢？可以，但需要高阶一点的<code>expect</code>语法，写法如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">set timeout 30</div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01.baidu.com</div><div class="line">set jumpuser root</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost:$jumpport</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host dev.baidu.com</div><div class="line">set passwd xxx</div><div class="line">set user xxx</div><div class="line">set port 22</div><div class="line"></div><div class="line">interact &#123;</div><div class="line">    &quot;off&quot; &#123;</div><div class="line">        send &quot;ssh $user@$host:$port\n&quot;</div><div class="line">        # exec ssh $user@$host:$port</div><div class="line">        interact</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>第一种：<br>已经通过动态密码登录过跳板机：【复制会话】会实现自动登录，配置方式同上；</p>
 </li>
-</ol>
+<li><p>第二种：<br>有的同学比较任性，之前没有登陆过跳板机，能不能实现一次操作直接登录跳板机和目标机器呢？可以，但需要高阶一点的<code>expect</code>语法，写法如下：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line">set timeout 30</div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01.baidu.com</div><div class="line">set jumpuser root</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost:$jumpport</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host dev.baidu.com</div><div class="line">set passwd xxx</div><div class="line">set user xxx</div><div class="line">set port 22</div><div class="line"></div><div class="line">interact &#123;</div><div class="line">    &quot;off&quot; &#123;</div><div class="line">        send &quot;ssh $user@$host:$port\n&quot;</div><div class="line">        # exec ssh $user@$host:$port</div><div class="line">        interact</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>提示：<code>off</code>为用户设置的远端机器的别名，登录跳板机后，输入“off”登录目标机器。</p>
 <p>这种方式可能还不够优雅，下面介绍<strong>终极解决方案</strong>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/expect</div><div class="line"></div><div class="line"># 跳板机</div><div class="line">set jumphost relay01</div><div class="line">set jumpuser xiashanshan</div><div class="line">set jumpport 22</div><div class="line"></div><div class="line"># grab the password</div><div class="line">stty -echo</div><div class="line">send_user -- &quot;Password for $jumpuser@$jumphost: &quot;</div><div class="line">expect_user -re &quot;(.*)\n&quot;</div><div class="line">send_user &quot;\n&quot;</div><div class="line">stty echo</div><div class="line"># set pass</div><div class="line">set pass $expect_out(1,string)</div><div class="line"></div><div class="line">#exec ssh $jumpuser@$jumphost</div><div class="line"></div><div class="line"># 登录跳板机</div><div class="line">spawn ssh $jumpuser@$jumphost</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;*password:*&quot; &#123; send &quot;$pass\n&quot; &#125;</div><div class="line">    &quot;*ssl*&quot; &#123; send &quot;\n&quot; &#125;</div><div class="line">    default &#123; exit 1 &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"># 目标机器信息</div><div class="line">set host idev.baidu.com</div><div class="line">set user root</div><div class="line">set password root</div><div class="line"></div><div class="line">send &quot;ssh --matrix $user@$host\n&quot;</div><div class="line"></div><div class="line">expect &#123;</div><div class="line">    &quot;*password:*&quot; &#123; send &quot;$pass\n&quot; &#125;</div><div class="line">    default &#123; exit 1 &#125;</div><div class="line">&#125;</div><div class="line">interact</div></pre></td></tr></table></figure>
@@ -453,19 +485,27 @@
 </thead>
 <tbody>
 <tr>
-<td>rz waiting to receive.**B0100</td>
+<td><code>\*\*B0100</code></td>
 <td>Run Silent Coprocess</td>
 <td>/usr/local/bin/iterm2-send-zmodem.sh</td>
 </tr>
 <tr>
-<td>**B00000000000000</td>
+<td><code>\*\*B00000000000000</code></td>
 <td>Run Silent Coprocess</td>
 <td>/usr/local/bin/iterm2-recv-zmodem.sh</td>
 </tr>
 </tbody>
 </table>
+<p>效果如下：<br><img src="/uploads/mac-iterm2/5a5d2301275185573efc085ef7f32a5d.png" alt=""></p>
+<p>至此你可以使用rz、sz命令上传或下载文件了~</p>
+<blockquote>
 <p><code>zmodem</code>原作者：<a href="https://github.com/mmastrac/iterm2-zmodem" target="_blank" rel="external">https://github.com/mmastrac/iterm2-zmodem</a></p>
-<p>参考文章：<br>1.<a href="https://linux.die.net/man/1/expect" target="_blank" rel="external">https://linux.die.net/man/1/expect</a><br>2.<a href="https://www.pantz.org/software/expect/expect_examples_and_tips.html" target="_blank" rel="external">https://www.pantz.org/software/expect/expect_examples_and_tips.html</a></p>
+</blockquote>
+<p>参考文章：</p>
+<ol>
+<li><a href="https://linux.die.net/man/1/expect" target="_blank" rel="external">https://linux.die.net/man/1/expect</a></li>
+<li><a href="https://www.pantz.org/software/expect/expect_examples_and_tips.html" target="_blank" rel="external">https://www.pantz.org/software/expect/expect_examples_and_tips.html</a></li>
+</ol>
 ]]></content>
       
         <categories>
